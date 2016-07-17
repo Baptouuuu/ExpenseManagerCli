@@ -1,0 +1,26 @@
+{
+    "name": "baptouuuu/expense-manager-cli",
+    "type": "project",
+    "description": "Cli implemenatation of expense manager domain",
+    "keywords": ["expense", "manager"],
+    "homepage": "http://github.com/Baptouuuu/ExpenseManagerCli",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baptiste Langlade",
+            "email": "langlade.baptiste@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/Baptouuuu/ExpenseManagerCli/issues"
+    },
+    "require": {
+        "php": "~7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ExpenseManagerCli\\": "src/",
+            "Tests\\ExpenseManagerCli\\": "tests/"
+        }
+    }
+}
