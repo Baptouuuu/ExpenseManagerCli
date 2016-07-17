@@ -4,7 +4,12 @@ declare(strict_types = 1);
 
 require __DIR__.'/vendor/autoload.php';
 
+use ExpenseManagerCli\Command\InitCommand;
+use Innmind\Filesystem\Adapter\FilesystemAdapter;
 use Symfony\Component\Console\Application;
 
+$config = new FilesystemAdapter(getenv('HOME'));
+
 $app = new Application('ExpenseManager');
+$app->add(new InitCommand($config));
 $app->run();

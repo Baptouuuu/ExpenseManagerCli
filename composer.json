@@ -16,7 +16,8 @@
     },
     "require": {
         "php": "~7.0",
-        "symfony/console": "~3.0"
+        "symfony/console": "~3.0",
+        "innmind/filesystem": "^1.2"
     },
     "bin": ["expense-manager"],
     "autoload": {
