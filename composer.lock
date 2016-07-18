@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bfae034b219719187b8adc11fb08ae57",
-    "content-hash": "7c3722433e432b31933e32bfbb172951",
+    "hash": "dd586ce7c45d737599cff50047c56068",
+    "content-hash": "53b7d430e3edbf403a7dd1c2a3e92406",
     "packages": [
         {
             "name": "baptouuuu/expense-manager",
@@ -181,6 +181,48 @@
                 "wrapper"
             ],
             "time": "2016-07-15 12:23:56"
+        },
+        {
+            "name": "innmind/reflection",
+            "version": "1.1.1",
+            "target-dir": "Innmind/Reflection",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Reflection.git",
+                "reference": "b4ce2d38147896e7c78981adcd80dc6220e254c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Reflection/zipball/b4ce2d38147896e7c78981adcd80dc6220e254c9",
+                "reference": "b4ce2d38147896e7c78981adcd80dc6220e254c9",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~0.6|~1.0",
+                "php": "~7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Innmind\\Reflection": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "langlade.baptiste@gmail.com"
+                }
+            ],
+            "description": "Library to build objects and extract data out of them",
+            "homepage": "http://github.com/Innmind/Reflection",
+            "keywords": [
+                "reflection"
+            ],
+            "time": "2016-02-28 11:23:07"
         },
         {
             "name": "innmind/specification",

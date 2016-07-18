@@ -19,7 +19,8 @@
         "symfony/console": "~3.0",
         "innmind/filesystem": "^1.2",
         "baptouuuu/expense-manager": "develop-dev",
-        "ramsey/uuid": "^3.4"
+        "ramsey/uuid": "^3.4",
+        "innmind/reflection": "^1.1"
     },
     "bin": ["expense-manager"],
     "autoload": {
