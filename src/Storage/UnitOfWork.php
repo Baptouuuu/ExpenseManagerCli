@@ -56,6 +56,13 @@ final class UnitOfWork
         return $this->entities->get($class.'#'.$id);
     }
 
+    public function remove(string $class, string $id): self
+    {
+        $this->entities = $this->entities->remove($class.'#'.$id);
+
+        return $this;
+    }
+
     public function all(): MapInterface
     {
         return $this->entities;

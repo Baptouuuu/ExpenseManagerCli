@@ -109,4 +109,23 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             $this->persistence->get(Budget::class, $uuid)
         );
     }
+
+    public function testRemove()
+    {
+        $uuid = (string) Uuid::uuid4();
+        $budget = new Budget(
+            new Identity($uuid),
+            'foo',
+            new Amount(24),
+            (new Set(IdentityInterface::class))
+                ->add(new Category((string) Uuid::uuid4()))
+        );
+        $this->persistence->persist($budget);
+
+        $this->assertSame(
+            $this->persistence,
+            $this->persistence->remove(Budget::class, $uuid)
+        );
+        $this->assertFalse($this->persistence->has(Budget::class, $uuid));
+    }
 }

@@ -120,4 +120,16 @@ final class Persistence
 
         return $object;
     }
+
+    public function remove(string $class, string $id): self
+    {
+        $adapter = $this->adapters->get($class);
+        $this->uow->remove($class, $id);
+
+        if ($adapter->has($id)) {
+            $adapter->remove($id);
+        }
+
+        return $this;
+    }
 }
