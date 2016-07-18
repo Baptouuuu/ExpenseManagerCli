@@ -19,12 +19,13 @@ final class Persistence
     private $adapters;
     private $normalizers;
     private $denormalizers;
-    private $objects;
+    private $uow;
 
     public function __construct(
         MapInterface $adapters,
         MapInterface $normalizers,
-        MapInterface $denormalizers
+        MapInterface $denormalizers,
+        UnitOfWork $uow
     ) {
         if (
             (string) $adapters->keyType() !== 'string' ||
@@ -40,7 +41,7 @@ final class Persistence
         $this->adapters = $adapters;
         $this->normalizers = $normalizers;
         $this->denormalizers = $denormalizers;
-        $this->objects = new Map('string', 'object');
+        $this->uow = $uow;
     }
 
     /**
@@ -68,17 +69,17 @@ final class Persistence
                     new StringStream(json_encode($pair->value())."\n")
                 )
             );
-        $this->objects = $this->objects->put(
-            $class.'#'.$pair->key(),
-            $object
-        );
+
+        if ($this->uow->handles($class)) {
+            $this->uow->add($pair->key(), $object);
+        }
 
         return $this;
     }
 
     public function has(string $class, string $id): bool
     {
-        if ($this->objects->contains($class.'#'.$id)) {
+        if ($this->uow->has($class, $id)) {
             return true;
         }
 
@@ -96,8 +97,8 @@ final class Persistence
      */
     public function get(string $class, string $id)
     {
-        if ($this->objects->contains($class.'#'.$id)) {
-            return $this->objects->get($class.'#'.$id);
+        if ($this->uow->has($class, $id)) {
+            return $this->uow->get($class, $id);
         }
 
         $file = $this
@@ -112,10 +113,10 @@ final class Persistence
                 (string) $file->content(),
                 true
             ));
-        $this->objects = $this->objects->put(
-            $class.'#'.$id,
-            $object
-        );
+
+        if ($this->uow->handles($class)) {
+            $this->uow->add($id, $object);
+        }
 
         return $object;
     }

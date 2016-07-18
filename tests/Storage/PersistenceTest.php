@@ -5,6 +5,7 @@ namespace Tests\ExpenseManagerCli\Storage;
 
 use ExpenseManagerCli\{
     Storage\Persistence,
+    Storage\UnitOfWork,
     Storage\NormalizerInterface,
     Storage\DenormalizerInterface,
     Storage\Normalizer\BudgetNormalizer,
@@ -42,7 +43,10 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             (new Map('string', NormalizerInterface::class))
                 ->put(Budget::class, new BudgetNormalizer),
             (new Map('string', DenormalizerInterface::class))
-                ->put(Budget::class, new BudgetDenormalizer)
+                ->put(Budget::class, new BudgetDenormalizer),
+            new UnitOfWork(
+                (new Set('string'))->add(Budget::class)
+            )
         );
     }
 
