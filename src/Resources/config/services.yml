@@ -1,0 +1,13 @@
+imports:
+    - { resource: env.php }
+
+services:
+    storage.config:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        arguments:
+            - %user_home%
+
+    command.init:
+        class: ExpenseManagerCli\Command\InitCommand
+        arguments:
+            - '@storage.config'

@@ -4,12 +4,32 @@ declare(strict_types = 1);
 
 require __DIR__.'/vendor/autoload.php';
 
-use ExpenseManagerCli\Command\InitCommand;
-use Innmind\Filesystem\Adapter\FilesystemAdapter;
-use Symfony\Component\Console\Application;
+use Symfony\Component\{
+    Console\Application,
+    DependencyInjection\ContainerBuilder,
+    DependencyInjection\Loader\YamlFileLoader,
+    DependencyInjection\Loader\PhpFileLoader,
+    Config\FileLocator,
+    Config\Loader\DelegatingLoader,
+    Config\Loader\LoaderResolver
+};
 
-$config = new FilesystemAdapter(getenv('HOME'));
+$container = new ContainerBuilder;
+$loader = new DelegatingLoader(
+    new LoaderResolver([
+        new YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/src/Resources/config')
+        ),
+        new PhpFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/src/Resources/config')
+        ),
+    ])
+);
+$loader->load('services.yml');
+$container->compile();
 
 $app = new Application('ExpenseManager');
-$app->add(new InitCommand($config));
+$app->add($container->get('command.init'));
 $app->run();

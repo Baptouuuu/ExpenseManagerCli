@@ -20,7 +20,10 @@
         "innmind/filesystem": "^1.2",
         "baptouuuu/expense-manager": "develop-dev",
         "ramsey/uuid": "^3.4",
-        "innmind/reflection": "^1.1"
+        "innmind/reflection": "^1.1",
+        "symfony/dependency-injection": "~3.0",
+        "symfony/config": "~3.0",
+        "symfony/yaml": "~3.0"
     },
     "bin": ["expense-manager"],
     "autoload": {
