@@ -1,0 +1,128 @@
+services:
+    storage.denormalizer.budget:
+        class: ExpenseManagerCli\Storage\Denormalizer\BudgetDenormalizer
+        public: false
+
+    storage.denormalizer.category:
+        class: ExpenseManagerCli\Storage\Denormalizer\CategoryDenormalizer
+        public: false
+
+    storage.denormalizer.expense:
+        class: ExpenseManagerCli\Storage\Denormalizer\ExpenseDenormalizer
+        public: false
+
+    storage.denormalizer.fixed_cost:
+        class: ExpenseManagerCli\Storage\Denormalizer\FixedCostDenormalizer
+        public: false
+
+    storage.denormalizer.income:
+        class: ExpenseManagerCli\Storage\Denormalizer\IncomeDenormalizer
+        public: false
+
+    storage.denormalizer.one_off_income:
+        class: ExpenseManagerCli\Storage\Denormalizer\OneOffIncomeDenormalizer
+        public: false
+
+    storage.normalizer.budget:
+        class: ExpenseManagerCli\Storage\Normalizer\BudgetDenormalizer
+        public: false
+
+    storage.normalizer.category:
+        class: ExpenseManagerCli\Storage\Normalizer\CategoryDenormalizer
+        public: false
+
+    storage.normalizer.expense:
+        class: ExpenseManagerCli\Storage\Normalizer\ExpenseDenormalizer
+        public: false
+
+    storage.normalizer.fixed_cost:
+        class: ExpenseManagerCli\Storage\Normalizer\FixedCostDenormalizer
+        public: false
+
+    storage.normalizer.income:
+        class: ExpenseManagerCli\Storage\Normalizer\IncomeDenormalizer
+        public: false
+
+    storage.normalizer.one_off_income:
+        class: ExpenseManagerCli\Storage\Normalizer\OneOffIncomeDenormalizer
+        public: false
+
+    storage.unit_of_work:
+        class: ExpenseManagerCli\Storage\UnitOfWork
+        public: false
+        arguments:
+            - ExpenseManager\Entity\Budget
+            - ExpenseManager\Entity\Category
+            - ExpenseManager\Entity\Expense
+            - ExpenseManager\Entity\FixedCost
+            - ExpenseManager\Entity\Income
+            - ExpenseManager\Entity\OneOffIncome
+        factory:
+            - ExpenseManagerCli\Factory\UnitOfWorkFactory
+            - make
+
+    storage.persistence:
+        class: ExpenseManagerCli\Storage\Persistence
+        public: false
+        arguments:
+            -
+                ExpenseManager\Entity\Budget: '@storage.adapter.budget'
+                ExpenseManager\Entity\Category: '@storage.adapter.category'
+                ExpenseManager\Entity\Expense: '@storage.adapter.expense'
+                ExpenseManager\Entity\FixedCost: '@storage.adapter.fixed_cost'
+                ExpenseManager\Entity\Income: '@storage.adapter.income'
+                ExpenseManager\Entity\OneOffIncome: '@storage.adapter.one_off_income'
+            -
+                ExpenseManager\Entity\Budget: '@storage.normalizer.budget'
+                ExpenseManager\Entity\Category: '@storage.normalizer.category'
+                ExpenseManager\Entity\Expense: '@storage.normalizer.expense'
+                ExpenseManager\Entity\FixedCost: '@storage.normalizer.fixed_cost'
+                ExpenseManager\Entity\Income: '@storage.normalizer.income'
+                ExpenseManager\Entity\OneOffIncome: '@storage.normalizer.one_off_income'
+            -
+                ExpenseManager\Entity\Budget: '@storage.denormalizer.budget'
+                ExpenseManager\Entity\Category: '@storage.denormalizer.category'
+                ExpenseManager\Entity\Expense: '@storage.denormalizer.expense'
+                ExpenseManager\Entity\FixedCost: '@storage.denormalizer.fixed_cost'
+                ExpenseManager\Entity\Income: '@storage.denormalizer.income'
+                ExpenseManager\Entity\OneOffIncome: '@storage.denormalizer.one_off_income'
+            - '@storage.unit_of_work'
+        factory:
+            - ExpenseManagerCli\Factory\PersistenceFactory
+            - make
+
+    storage.adapter.budget:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/budget'
+
+    storage.adapter.category:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/category'
+
+    storage.adapter.expense:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/expense'
+
+    storage.adapter.fixed_cost:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/fixed_cost'
+
+    storage.adapter.income:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/income'
+
+    storage.adapter.one_off_income:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/one_off_income'

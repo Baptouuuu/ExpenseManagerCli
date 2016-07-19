@@ -1,5 +1,7 @@
 imports:
     - { resource: env.php }
+    - { resource: storage.yml }
+    - { resource: repositories.yml }
 
 services:
     storage.config:

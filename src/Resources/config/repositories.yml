@@ -1,0 +1,30 @@
+services:
+    repository.budget:
+        class: ExpenseManagerCli\Repository\BudgetRepository
+        arguments:
+            - '@storage.persistence'
+
+    repository.category:
+        class: ExpenseManagerCli\Repository\CategoryRepository
+        arguments:
+            - '@storage.persistence'
+
+    repository.expense:
+        class: ExpenseManagerCli\Repository\ExpenseRepository
+        arguments:
+            - '@storage.persistence'
+
+    repository.fixed_cost:
+        class: ExpenseManagerCli\Repository\FixedCostRepository
+        arguments:
+            - '@storage.persistence'
+
+    repository.income:
+        class: ExpenseManagerCli\Repository\IncomeRepository
+        arguments:
+            - '@storage.persistence'
+
+    repository.one_off_income:
+        class: ExpenseManagerCli\Repository\OneOffIncomeRepository
+        arguments:
+            - '@storage.persistence'
