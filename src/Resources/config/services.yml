@@ -2,6 +2,7 @@ imports:
     - { resource: env.php }
     - { resource: storage.yml }
     - { resource: repositories.yml }
+    - { resource: handlers.yml }
 
 services:
     storage.config:
@@ -13,3 +14,19 @@ services:
         class: ExpenseManagerCli\Command\InitCommand
         arguments:
             - '@storage.config'
+
+    command.category.create:
+        class: ExpenseManagerCli\Command\Category\CreateCommand
+        arguments:
+            - '@command_bus'
+
+    command_bus: '@command_bus.default'
+
+    command_bus.default:
+        class: Innmind\CommandBus\CommandBus
+        arguments:
+            -
+                ExpenseManager\Command\CreateCategory: '@handler.create_category'
+        factory:
+            - ExpenseManagerCli\Factory\CommandBusFactory
+            - make

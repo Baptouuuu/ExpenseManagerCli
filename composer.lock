@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "147f5830e676858a505c0ca1ea15ad21",
-    "content-hash": "464bc28636c07cf0f72b118e2a2090c9",
+    "hash": "5d8131e0db5ffdaa46462693639b94ce",
+    "content-hash": "96c865e57aec200a9309181b9ff9f88a",
     "packages": [
         {
             "name": "baptouuuu/expense-manager",
@@ -52,6 +52,49 @@
                 "manager"
             ],
             "time": "2016-07-17 12:49:40"
+        },
+        {
+            "name": "innmind/command-bus",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/CommandBus.git",
+                "reference": "468e04bd0db618dd7e7df885f059b10f14e667af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/CommandBus/zipball/468e04bd0db618dd7e7df885f059b10f14e667af",
+                "reference": "468e04bd0db618dd7e7df885f059b10f14e667af",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/immutable": "~1.9",
+                "php": "~7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\CommandBus\\": "src/",
+                    "Tests\\Innmind\\CommandBus\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "langlade.baptiste@gmail.com"
+                }
+            ],
+            "description": "Command Bus library",
+            "homepage": "http://github.com/Innmind/CommandBus",
+            "keywords": [
+                "command bus",
+                "ddd"
+            ],
+            "time": "2016-07-20 06:22:14"
         },
         {
             "name": "innmind/event-bus",

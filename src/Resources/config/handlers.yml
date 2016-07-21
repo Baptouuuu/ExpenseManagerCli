@@ -1,0 +1,5 @@
+services:
+    handler.create_category:
+        class: ExpenseManager\Handler\CreateCategoryHandler
+        arguments:
+            - '@repository.category'

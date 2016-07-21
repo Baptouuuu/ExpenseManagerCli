@@ -32,4 +32,5 @@ $container->compile();
 
 $app = new Application('ExpenseManager');
 $app->add($container->get('command.init'));
+$app->add($container->get('command.category.create'));
 $app->run();
