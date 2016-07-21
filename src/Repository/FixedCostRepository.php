@@ -11,7 +11,10 @@ use ExpenseManager\{
     Exception\FixedCostNotFoundException
 };
 use Innmind\Specification\SpecificationInterface;
-use Innmind\Immutable\Set;
+use Innmind\Immutable\{
+    Set,
+    SetInterface
+};
 
 final class FixedCostRepository implements FixedCostRepositoryInterface
 {

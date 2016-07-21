@@ -11,7 +11,10 @@ use ExpenseManager\{
     Exception\CategoryNotFoundException
 };
 use Innmind\Specification\SpecificationInterface;
-use Innmind\Immutable\Set;
+use Innmind\Immutable\{
+    Set,
+    SetInterface
+};
 
 final class CategoryRepository implements CategoryRepositoryInterface
 {

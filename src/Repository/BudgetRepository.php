@@ -11,7 +11,10 @@ use ExpenseManager\{
     Exception\BudgetNotFoundException
 };
 use Innmind\Specification\SpecificationInterface;
-use Innmind\Immutable\Set;
+use Innmind\Immutable\{
+    Set,
+    SetInterface
+};
 
 final class BudgetRepository implements BudgetRepositoryInterface
 {
