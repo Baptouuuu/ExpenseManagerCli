@@ -24,21 +24,21 @@ final class PersistenceFactory
             array_reduce(
                 array_keys($adapters),
                 function(Map $carry, string $class) use ($adapters): Map {
-                    return $map->put($class, $adapters[$class]);
+                    return $carry->put($class, $adapters[$class]);
                 },
                 new Map('string', AdapterInterface::class)
             ),
             array_reduce(
                 array_keys($normalizers),
                 function(Map $carry, string $class) use ($normalizers): Map {
-                    return $map->put($class, $normalizers[$class]);
+                    return $carry->put($class, $normalizers[$class]);
                 },
                 new Map('string', NormalizerInterface::class)
             ),
             array_reduce(
                 array_keys($denormalizers),
                 function(Map $carry, string $class) use ($denormalizers): Map {
-                    return $map->put($class, $denormalizers[$class]);
+                    return $carry->put($class, $denormalizers[$class]);
                 },
                 new Map('string', DenormalizerInterface::class)
             ),
