@@ -7,7 +7,8 @@ use ExpenseManagerCli\Exception\InvalidArgumentException;
 use Innmind\Filesystem\{
     AdapterInterface,
     File,
-    Stream\StringStream
+    Stream\StringStream,
+    Directory
 };
 use Innmind\Immutable\{
     MapInterface,
@@ -16,20 +17,22 @@ use Innmind\Immutable\{
 
 final class Persistence
 {
-    private $adapters;
+    private $filesystem;
+    private $folders;
     private $normalizers;
     private $denormalizers;
     private $uow;
 
     public function __construct(
-        MapInterface $adapters,
+        AdapterInterface $filesystem,
+        MapInterface $folders,
         MapInterface $normalizers,
         MapInterface $denormalizers,
         UnitOfWork $uow
     ) {
         if (
-            (string) $adapters->keyType() !== 'string' ||
-            (string) $adapters->valueType() !== AdapterInterface::class ||
+            (string) $folders->keyType() !== 'string' ||
+            (string) $folders->valueType() !== 'string' ||
             (string) $normalizers->keyType() !== 'string' ||
             (string) $normalizers->valueType() !== NormalizerInterface::class ||
             (string) $denormalizers->keyType() !== 'string' ||
@@ -38,7 +41,8 @@ final class Persistence
             throw new InvalidArgumentException;
         }
 
-        $this->adapters = $adapters;
+        $this->filesystem = $filesystem;
+        $this->folders = $folders;
         $this->normalizers = $normalizers;
         $this->denormalizers = $denormalizers;
         $this->uow = $uow;
@@ -60,15 +64,19 @@ final class Persistence
             ->normalizers
             ->get($class)
             ->normalize($object);
-        $this
-            ->adapters
-            ->get($class)
-            ->add(
-                new File(
-                    $pair->key(),
-                    new StringStream(json_encode($pair->value())."\n")
-                )
-            );
+        $folder = $this->folders->get($class);
+
+        if (!$this->filesystem->has($folder)) {
+            $this->filesystem->add(new Directory($folder));
+        }
+
+        $directory = $this->filesystem->get($folder);
+        $this->filesystem->add($directory->add(
+            new File(
+                $pair->key(),
+                new StringStream(json_encode($pair->value())."\n")
+            )
+        ));
 
         if ($this->uow->handles($class)) {
             $this->uow->add($pair->key(), $object);
@@ -83,9 +91,15 @@ final class Persistence
             return true;
         }
 
+        $folder = $this->folders->get($class);
+
+        if (!$this->filesystem->has($folder)) {
+            return false;
+        }
+
         return $this
-            ->adapters
-            ->get($class)
+            ->filesystem
+            ->get($folder)
             ->has($id);
     }
 
@@ -102,8 +116,8 @@ final class Persistence
         }
 
         $file = $this
-            ->adapters
-            ->get($class)
+            ->filesystem
+            ->get($this->folders->get($class))
             ->get($id);
 
         $object = $this
@@ -123,11 +137,20 @@ final class Persistence
 
     public function remove(string $class, string $id): self
     {
-        $adapter = $this->adapters->get($class);
         $this->uow->remove($class, $id);
+        $adapter = $this->folders->get($class);
+        $folder = $this->folders->get($class);
 
-        if ($adapter->has($id)) {
-            $adapter->remove($id);
+        if (!$this->filesystem->has($folder)) {
+            return $this;
+        }
+
+        $directory = $this
+            ->filesystem
+            ->get($folder);
+
+        if ($directory->has($id)) {
+            $this->filesystem->add($directory->remove($id));
         }
 
         return $this;

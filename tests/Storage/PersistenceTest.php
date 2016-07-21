@@ -22,7 +22,8 @@ use Innmind\Filesystem\{
     AdapterInterface,
     Adapter\MemoryAdapter,
     File,
-    Stream\StringStream
+    Stream\StringStream,
+    Directory
 };
 use Innmind\Immutable\{
     Map,
@@ -38,8 +39,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->persistence = new Persistence(
-            (new Map('string', AdapterInterface::class))
-                ->put(Budget::class, $this->adapter = new MemoryAdapter),
+            $this->adapter = new MemoryAdapter,
+            (new Map('string', 'string'))
+                ->put(Budget::class, 'budget'),
             (new Map('string', NormalizerInterface::class))
                 ->put(Budget::class, new BudgetNormalizer),
             (new Map('string', DenormalizerInterface::class))
@@ -73,7 +75,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
                 'amount' => 24,
                 'categories' => [$category],
             ])."\n",
-            (string) $this->adapter->get($uuid)->content()
+            (string) $this->adapter->get('budget')->get($uuid)->content()
         );
         $this->assertSame(
             $budget,
@@ -86,14 +88,16 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         $uuid = (string) Uuid::uuid4();
         $category = (string) Uuid::uuid4();
         $this->adapter->add(
-            new File(
-                $uuid,
-                new StringStream(json_encode([
-                    'identity' => $uuid,
-                    'name' => 'foo',
-                    'amount' => 24,
-                    'categories' => [$category],
-                ])."\n")
+            (new Directory('budget'))->add(
+                new File(
+                    $uuid,
+                    new StringStream(json_encode([
+                        'identity' => $uuid,
+                        'name' => 'foo',
+                        'amount' => 24,
+                        'categories' => [$category],
+                    ])."\n")
+                )
             )
         );
 

@@ -66,13 +66,14 @@ services:
         class: ExpenseManagerCli\Storage\Persistence
         public: false
         arguments:
+            - '@storage.filesystem'
             -
-                ExpenseManager\Entity\Budget: '@storage.adapter.budget'
-                ExpenseManager\Entity\Category: '@storage.adapter.category'
-                ExpenseManager\Entity\Expense: '@storage.adapter.expense'
-                ExpenseManager\Entity\FixedCost: '@storage.adapter.fixed_cost'
-                ExpenseManager\Entity\Income: '@storage.adapter.income'
-                ExpenseManager\Entity\OneOffIncome: '@storage.adapter.one_off_income'
+                ExpenseManager\Entity\Budget: budget
+                ExpenseManager\Entity\Category: category
+                ExpenseManager\Entity\Expense: expense
+                ExpenseManager\Entity\FixedCost: fixed_cost
+                ExpenseManager\Entity\Income: income
+                ExpenseManager\Entity\OneOffIncome: one_off_income
             -
                 ExpenseManager\Entity\Budget: '@storage.normalizer.budget'
                 ExpenseManager\Entity\Category: '@storage.normalizer.category'
@@ -92,38 +93,8 @@ services:
             - ExpenseManagerCli\Factory\PersistenceFactory
             - make
 
-    storage.adapter.budget:
+    storage.filesystem:
         class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
-            - '%wallet_path%/budget'
-
-    storage.adapter.category:
-        class: ExpenseManagerCli\Storage\FilesystemAdapter
-        public: false
-        arguments:
-            - '%wallet_path%/category'
-
-    storage.adapter.expense:
-        class: ExpenseManagerCli\Storage\FilesystemAdapter
-        public: false
-        arguments:
-            - '%wallet_path%/expense'
-
-    storage.adapter.fixed_cost:
-        class: ExpenseManagerCli\Storage\FilesystemAdapter
-        public: false
-        arguments:
-            - '%wallet_path%/fixed_cost'
-
-    storage.adapter.income:
-        class: ExpenseManagerCli\Storage\FilesystemAdapter
-        public: false
-        arguments:
-            - '%wallet_path%/income'
-
-    storage.adapter.one_off_income:
-        class: ExpenseManagerCli\Storage\FilesystemAdapter
-        public: false
-        arguments:
-            - '%wallet_path%/one_off_income'
+            - '%wallet_path%'
