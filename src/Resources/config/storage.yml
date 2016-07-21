@@ -24,39 +24,40 @@ services:
         public: false
 
     storage.normalizer.budget:
-        class: ExpenseManagerCli\Storage\Normalizer\BudgetDenormalizer
+        class: ExpenseManagerCli\Storage\Normalizer\BudgetNormalizer
         public: false
 
     storage.normalizer.category:
-        class: ExpenseManagerCli\Storage\Normalizer\CategoryDenormalizer
+        class: ExpenseManagerCli\Storage\Normalizer\CategoryNormalizer
         public: false
 
     storage.normalizer.expense:
-        class: ExpenseManagerCli\Storage\Normalizer\ExpenseDenormalizer
+        class: ExpenseManagerCli\Storage\Normalizer\ExpenseNormalizer
         public: false
 
     storage.normalizer.fixed_cost:
-        class: ExpenseManagerCli\Storage\Normalizer\FixedCostDenormalizer
+        class: ExpenseManagerCli\Storage\Normalizer\FixedCostNormalizer
         public: false
 
     storage.normalizer.income:
-        class: ExpenseManagerCli\Storage\Normalizer\IncomeDenormalizer
+        class: ExpenseManagerCli\Storage\Normalizer\IncomeNormalizer
         public: false
 
     storage.normalizer.one_off_income:
-        class: ExpenseManagerCli\Storage\Normalizer\OneOffIncomeDenormalizer
+        class: ExpenseManagerCli\Storage\Normalizer\OneOffIncomeNormalizer
         public: false
 
     storage.unit_of_work:
         class: ExpenseManagerCli\Storage\UnitOfWork
         public: false
         arguments:
-            - ExpenseManager\Entity\Budget
-            - ExpenseManager\Entity\Category
-            - ExpenseManager\Entity\Expense
-            - ExpenseManager\Entity\FixedCost
-            - ExpenseManager\Entity\Income
-            - ExpenseManager\Entity\OneOffIncome
+            -
+                - ExpenseManager\Entity\Budget
+                - ExpenseManager\Entity\Category
+                - ExpenseManager\Entity\Expense
+                - ExpenseManager\Entity\FixedCost
+                - ExpenseManager\Entity\Income
+                - ExpenseManager\Entity\OneOffIncome
         factory:
             - ExpenseManagerCli\Factory\UnitOfWorkFactory
             - make
