@@ -12,7 +12,9 @@ use Innmind\Filesystem\{
 };
 use Innmind\Immutable\{
     MapInterface,
-    Map
+    Map,
+    Set,
+    SetInterface
 };
 
 final class Persistence
@@ -154,5 +156,35 @@ final class Persistence
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @return SetInterface<$class>
+     */
+    public function all(string $class): SetInterface
+    {
+        $set = new Set($class);
+        $folder = $this->folders->get($class);
+
+        if (!$this->filesystem->has($folder)) {
+            return $set;
+        }
+
+        $directory = $this->filesystem->get($folder);
+        $toIgnore = (new Set('string'))
+            ->add('.')
+            ->add('..');
+
+        foreach ($directory as $file) {
+            if ($toIgnore->contains((string) $file->name())) {
+                continue;
+            }
+
+            $set = $set->add($this->get($class, (string) $file->name()));
+        }
+
+        return $set;
     }
 }
