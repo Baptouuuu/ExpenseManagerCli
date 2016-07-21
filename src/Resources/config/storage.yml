@@ -93,37 +93,37 @@ services:
             - make
 
     storage.adapter.budget:
-        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%/budget'
 
     storage.adapter.category:
-        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%/category'
 
     storage.adapter.expense:
-        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%/expense'
 
     storage.adapter.fixed_cost:
-        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%/fixed_cost'
 
     storage.adapter.income:
-        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%/income'
 
     storage.adapter.one_off_income:
-        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        class: ExpenseManagerCli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%/one_off_income'
