@@ -56,18 +56,7 @@ final class OneOffIncomeRepository implements OneOffIncomeRepositoryInterface
      */
     public function all(): SetInterface
     {
-        return $this
-            ->persistence
-            ->all()
-            ->filter(function(string $key, $entity): bool {
-                return $entity instanceof OneOffIncome;
-            })
-            ->reduce(
-                new Set(OneOffIncome::class),
-                function(Set $carry, string $key, OneOffIncome $income): Set {
-                    return $carry->add($income);
-                }
-            );
+        return $this->persistence->all(OneOffIncome::class);
     }
 
     /**

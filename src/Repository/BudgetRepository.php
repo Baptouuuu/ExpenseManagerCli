@@ -56,18 +56,7 @@ final class BudgetRepository implements BudgetRepositoryInterface
      */
     public function all(): SetInterface
     {
-        return $this
-            ->persistence
-            ->all()
-            ->filter(function(string $key, $entity): bool {
-                return $entity instanceof Budget;
-            })
-            ->reduce(
-                new Set(Budget::class),
-                function(Set $carry, string $key, Budget $budget): Set {
-                    return $carry->add($budget);
-                }
-            );
+        return $this->persistence->all(Budget::class);
     }
 
     /**

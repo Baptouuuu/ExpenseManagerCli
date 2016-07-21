@@ -56,18 +56,7 @@ final class CategoryRepository implements CategoryRepositoryInterface
      */
     public function all(): SetInterface
     {
-        return $this
-            ->persistence
-            ->all()
-            ->filter(function(string $key, $entity): bool {
-                return $entity instanceof Category;
-            })
-            ->reduce(
-                new Set(Category::class),
-                function(Set $carry, string $key, Category $category): Set {
-                    return $carry->add($category);
-                }
-            );
+        return $this->persistence->all(Category::class);
     }
 
     /**

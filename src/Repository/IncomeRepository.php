@@ -56,18 +56,7 @@ final class IncomeRepository implements IncomeRepositoryInterface
      */
     public function all(): SetInterface
     {
-        return $this
-            ->persistence
-            ->all()
-            ->filter(function(string $key, $entity): bool {
-                return $entity instanceof Income;
-            })
-            ->reduce(
-                new Set(Income::class),
-                function(Set $carry, string $key, Income $income): Set {
-                    return $carry->add($income);
-                }
-            );
+        return $this->persistence->all(Income::class);
     }
 
     /**

@@ -56,18 +56,7 @@ final class FixedCostRepository implements FixedCostRepositoryInterface
      */
     public function all(): SetInterface
     {
-        return $this
-            ->persistence
-            ->all()
-            ->filter(function(string $key, $entity): bool {
-                return $entity instanceof FixedCost;
-            })
-            ->reduce(
-                new Set(FixedCost::class),
-                function(Set $carry, string $key, FixedCost $cost): Set {
-                    return $carry->add($cost);
-                }
-            );
+        return $this->persistence->all(FixedCost::class);
     }
 
     /**
