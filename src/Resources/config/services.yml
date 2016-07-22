@@ -32,7 +32,7 @@ services:
             - '@command_bus'
             - '@repository.category'
 
-    command_bus: '@command_bus.default'
+    command_bus: '@command_bus.flush'
 
     command_bus.default:
         class: Innmind\CommandBus\CommandBus
@@ -45,3 +45,10 @@ services:
         factory:
             - ExpenseManager\Cli\Factory\CommandBusFactory
             - make
+
+    command_bus.flush:
+        class: ExpenseManager\Cli\CommandBus\FlushCommandBus
+        arguments:
+            - '@command_bus.default'
+            - '@storage.unit_of_work'
+            - '@storage.persistence'
