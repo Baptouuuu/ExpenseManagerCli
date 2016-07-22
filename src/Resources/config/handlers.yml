@@ -1,4 +1,10 @@
 services:
+    handler.create_budget:
+        class: ExpenseManager\Handler\CreateBudgetHandler
+        arguments:
+            - '@repository.budget'
+            - '@repository.category'
+
     handler.create_category:
         class: ExpenseManager\Handler\CreateCategoryHandler
         arguments:

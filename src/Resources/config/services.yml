@@ -20,12 +20,19 @@ services:
         arguments:
             - '@command_bus'
 
+    command.budget.create:
+        class: ExpenseManagerCli\Command\Budget\CreateCommand
+        arguments:
+            - '@command_bus'
+            - '@repository.category'
+
     command_bus: '@command_bus.default'
 
     command_bus.default:
         class: Innmind\CommandBus\CommandBus
         arguments:
             -
+                ExpenseManager\Command\CreateBudget: '@handler.create_budget'
                 ExpenseManager\Command\CreateCategory: '@handler.create_category'
         factory:
             - ExpenseManagerCli\Factory\CommandBusFactory
