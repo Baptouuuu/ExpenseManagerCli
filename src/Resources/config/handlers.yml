@@ -20,3 +20,13 @@ services:
         class: ExpenseManager\Handler\SpecifyExpenseNoteHandler
         arguments:
             - '@repository.expense'
+
+    handler.create_one_off_income:
+        class: ExpenseManager\Handler\CreateOneOffIncomeHandler
+        arguments:
+            - '@repository.one_off_income'
+
+    handler.specify_one_off_income_note:
+        class: ExpenseManager\Handler\SpecifyOneOffIncomeNoteHandler
+        arguments:
+            - '@repository.one_off_income'

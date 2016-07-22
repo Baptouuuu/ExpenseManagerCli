@@ -35,4 +35,5 @@ $app->add($container->get('command.init'));
 $app->add($container->get('command.category.create'));
 $app->add($container->get('command.budget.create'));
 $app->add($container->get('command.expense.create'));
+$app->add($container->get('command.one_off_income.create'));
 $app->run();
