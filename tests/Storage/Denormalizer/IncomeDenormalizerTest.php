@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Storage\Denormalizer;
+namespace Tests\ExpenseManager\Cli\Storage\Denormalizer;
 
-use ExpenseManagerCli\Storage\{
+use ExpenseManager\Cli\Storage\{
     Denormalizer\IncomeDenormalizer,
     DenormalizerInterface
 };

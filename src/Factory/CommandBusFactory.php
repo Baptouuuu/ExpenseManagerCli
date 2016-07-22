@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Factory;
+namespace ExpenseManager\Cli\Factory;
 
 use Innmind\CommandBus\CommandBus;
 use Innmind\Immutable\Map;

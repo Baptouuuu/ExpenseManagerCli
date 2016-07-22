@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Factory;
+namespace ExpenseManager\Cli\Factory;
 
-use ExpenseManagerCli\Storage\UnitOfWork;
+use ExpenseManager\Cli\Storage\UnitOfWork;
 use Innmind\Immutable\Set;
 
 final class UnitOfWorkFactory

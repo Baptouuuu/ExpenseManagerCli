@@ -1,10 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Factory;
+namespace Tests\ExpenseManager\Cli\Factory;
 
-use ExpenseManagerCli\Factory\UnitOfWorkFactory;
-use ExpenseManagerCli\Storage\UnitOfWork;
+use ExpenseManager\Cli\Factory\UnitOfWorkFactory;
+use ExpenseManager\Cli\Storage\UnitOfWork;
 
 class UnitOfWorkFactoryTest extends \PHPUnit_Framework_TestCase
 {

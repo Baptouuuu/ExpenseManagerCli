@@ -29,8 +29,8 @@
     "bin": ["expense-manager"],
     "autoload": {
         "psr-4": {
-            "ExpenseManagerCli\\": "src/",
-            "Tests\\ExpenseManagerCli\\": "tests/"
+            "ExpenseManager\\Cli\\": "src/",
+            "Tests\\ExpenseManager\\Cli\\": "tests/"
         }
     }
 }

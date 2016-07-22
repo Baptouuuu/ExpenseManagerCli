@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Storage\Normalizer;
+namespace Tests\ExpenseManager\Cli\Storage\Normalizer;
 
-use ExpenseManagerCli\{
+use ExpenseManager\Cli\{
     Storage\NormalizerInterface,
     Storage\Normalizer\CategoryNormalizer,
     Entity\Category\Identity
@@ -46,7 +46,7 @@ class CategoryNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ExpenseManagerCli\Exception\InvalidArgumentException
+     * @expectedException ExpenseManager\Cli\Exception\InvalidArgumentException
      */
     public function testThrowWhenTryingToNormalizeWrongObject()
     {

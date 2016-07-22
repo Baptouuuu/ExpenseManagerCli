@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Factory;
+namespace Tests\ExpenseManager\Cli\Factory;
 
-use ExpenseManagerCli\{
+use ExpenseManager\Cli\{
     Factory\PersistenceFactory,
     Factory\UnitOfWorkFactory,
     Storage\Persistence,

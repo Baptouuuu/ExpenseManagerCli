@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Storage;
+namespace ExpenseManager\Cli\Storage;
 
-use ExpenseManagerCli\Exception\InvalidArgumentException;
+use ExpenseManager\Cli\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     MapInterface,
     SetInterface,

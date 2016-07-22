@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Storage\Normalizer;
+namespace ExpenseManager\Cli\Storage\Normalizer;
 
-use ExpenseManagerCli\{
+use ExpenseManager\Cli\{
     Storage\NormalizerInterface,
     Exception\InvalidArgumentException
 };

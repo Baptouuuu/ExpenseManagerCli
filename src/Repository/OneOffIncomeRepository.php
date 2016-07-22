@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Repository;
+namespace ExpenseManager\Cli\Repository;
 
-use ExpenseManagerCli\Storage\Persistence;
+use ExpenseManager\Cli\Storage\Persistence;
 use ExpenseManager\{
     Repository\OneOffIncomeRepositoryInterface,
     Entity\OneOffIncome,

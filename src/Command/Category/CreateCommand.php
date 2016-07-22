@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Command\Category;
+namespace ExpenseManager\Cli\Command\Category;
 
-use ExpenseManagerCli\Entity\Category\Identity;
+use ExpenseManager\Cli\Entity\Category\Identity;
 use ExpenseManager\{
     Command\CreateCategory,
     Color

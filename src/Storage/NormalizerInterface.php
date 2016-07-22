@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Storage;
+namespace ExpenseManager\Cli\Storage;
 
 use Innmind\Immutable\Pair;
 

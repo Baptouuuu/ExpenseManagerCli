@@ -1,54 +1,54 @@
 services:
     storage.denormalizer.budget:
-        class: ExpenseManagerCli\Storage\Denormalizer\BudgetDenormalizer
+        class: ExpenseManager\Cli\Storage\Denormalizer\BudgetDenormalizer
         public: false
 
     storage.denormalizer.category:
-        class: ExpenseManagerCli\Storage\Denormalizer\CategoryDenormalizer
+        class: ExpenseManager\Cli\Storage\Denormalizer\CategoryDenormalizer
         public: false
 
     storage.denormalizer.expense:
-        class: ExpenseManagerCli\Storage\Denormalizer\ExpenseDenormalizer
+        class: ExpenseManager\Cli\Storage\Denormalizer\ExpenseDenormalizer
         public: false
 
     storage.denormalizer.fixed_cost:
-        class: ExpenseManagerCli\Storage\Denormalizer\FixedCostDenormalizer
+        class: ExpenseManager\Cli\Storage\Denormalizer\FixedCostDenormalizer
         public: false
 
     storage.denormalizer.income:
-        class: ExpenseManagerCli\Storage\Denormalizer\IncomeDenormalizer
+        class: ExpenseManager\Cli\Storage\Denormalizer\IncomeDenormalizer
         public: false
 
     storage.denormalizer.one_off_income:
-        class: ExpenseManagerCli\Storage\Denormalizer\OneOffIncomeDenormalizer
+        class: ExpenseManager\Cli\Storage\Denormalizer\OneOffIncomeDenormalizer
         public: false
 
     storage.normalizer.budget:
-        class: ExpenseManagerCli\Storage\Normalizer\BudgetNormalizer
+        class: ExpenseManager\Cli\Storage\Normalizer\BudgetNormalizer
         public: false
 
     storage.normalizer.category:
-        class: ExpenseManagerCli\Storage\Normalizer\CategoryNormalizer
+        class: ExpenseManager\Cli\Storage\Normalizer\CategoryNormalizer
         public: false
 
     storage.normalizer.expense:
-        class: ExpenseManagerCli\Storage\Normalizer\ExpenseNormalizer
+        class: ExpenseManager\Cli\Storage\Normalizer\ExpenseNormalizer
         public: false
 
     storage.normalizer.fixed_cost:
-        class: ExpenseManagerCli\Storage\Normalizer\FixedCostNormalizer
+        class: ExpenseManager\Cli\Storage\Normalizer\FixedCostNormalizer
         public: false
 
     storage.normalizer.income:
-        class: ExpenseManagerCli\Storage\Normalizer\IncomeNormalizer
+        class: ExpenseManager\Cli\Storage\Normalizer\IncomeNormalizer
         public: false
 
     storage.normalizer.one_off_income:
-        class: ExpenseManagerCli\Storage\Normalizer\OneOffIncomeNormalizer
+        class: ExpenseManager\Cli\Storage\Normalizer\OneOffIncomeNormalizer
         public: false
 
     storage.unit_of_work:
-        class: ExpenseManagerCli\Storage\UnitOfWork
+        class: ExpenseManager\Cli\Storage\UnitOfWork
         public: false
         arguments:
             -
@@ -59,11 +59,11 @@ services:
                 - ExpenseManager\Entity\Income
                 - ExpenseManager\Entity\OneOffIncome
         factory:
-            - ExpenseManagerCli\Factory\UnitOfWorkFactory
+            - ExpenseManager\Cli\Factory\UnitOfWorkFactory
             - make
 
     storage.persistence:
-        class: ExpenseManagerCli\Storage\Persistence
+        class: ExpenseManager\Cli\Storage\Persistence
         public: false
         arguments:
             - '@storage.filesystem'
@@ -90,11 +90,11 @@ services:
                 ExpenseManager\Entity\OneOffIncome: '@storage.denormalizer.one_off_income'
             - '@storage.unit_of_work'
         factory:
-            - ExpenseManagerCli\Factory\PersistenceFactory
+            - ExpenseManager\Cli\Factory\PersistenceFactory
             - make
 
     storage.filesystem:
-        class: ExpenseManagerCli\Storage\FilesystemAdapter
+        class: ExpenseManager\Cli\Storage\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%'

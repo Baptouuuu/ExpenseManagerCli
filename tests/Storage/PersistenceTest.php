@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Storage;
+namespace Tests\ExpenseManager\Cli\Storage;
 
-use ExpenseManagerCli\{
+use ExpenseManager\Cli\{
     Storage\Persistence,
     Storage\UnitOfWork,
     Storage\NormalizerInterface,

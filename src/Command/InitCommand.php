@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Command;
+namespace ExpenseManager\Cli\Command;
 
 use Innmind\Filesystem\{
     AdapterInterface,

@@ -11,17 +11,17 @@ services:
             - %user_home%
 
     command.init:
-        class: ExpenseManagerCli\Command\InitCommand
+        class: ExpenseManager\Cli\Command\InitCommand
         arguments:
             - '@storage.config'
 
     command.category.create:
-        class: ExpenseManagerCli\Command\Category\CreateCommand
+        class: ExpenseManager\Cli\Command\Category\CreateCommand
         arguments:
             - '@command_bus'
 
     command.budget.create:
-        class: ExpenseManagerCli\Command\Budget\CreateCommand
+        class: ExpenseManager\Cli\Command\Budget\CreateCommand
         arguments:
             - '@command_bus'
             - '@repository.category'
@@ -35,5 +35,5 @@ services:
                 ExpenseManager\Command\CreateBudget: '@handler.create_budget'
                 ExpenseManager\Command\CreateCategory: '@handler.create_category'
         factory:
-            - ExpenseManagerCli\Factory\CommandBusFactory
+            - ExpenseManager\Cli\Factory\CommandBusFactory
             - make

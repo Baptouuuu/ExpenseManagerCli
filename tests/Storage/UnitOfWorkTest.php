@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Storage;
+namespace Tests\ExpenseManager\Cli\Storage;
 
-use ExpenseManagerCli\Storage\UnitOfWork;
+use ExpenseManager\Cli\Storage\UnitOfWork;
 use ExpenseManager\Entity\Category;
 use Innmind\Immutable\Set;
 
@@ -29,7 +29,7 @@ class UnitOfWorkTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ExpenseManagerCli\Exception\InvalidArgumentException
+     * @expectedException ExpenseManager\Cli\Exception\InvalidArgumentException
      */
     public function testThrowWhenAddingAnEntityNotHandled()
     {

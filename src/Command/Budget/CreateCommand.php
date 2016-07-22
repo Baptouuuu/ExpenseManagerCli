@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Command\Budget;
+namespace ExpenseManager\Cli\Command\Budget;
 
-use ExpenseManagerCli\Entity\Budget\Identity;
+use ExpenseManager\Cli\Entity\Budget\Identity;
 use ExpenseManager\{
     Entity\Category,
     Repository\CategoryRepositoryInterface,

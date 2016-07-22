@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Storage\Denormalizer;
+namespace ExpenseManager\Cli\Storage\Denormalizer;
 
-use ExpenseManagerCli\{
+use ExpenseManager\Cli\{
     Entity\FixedCost\Identity,
     Entity\Category\Identity as Category,
     Storage\DenormalizerInterface

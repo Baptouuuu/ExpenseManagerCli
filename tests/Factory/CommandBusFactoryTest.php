@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Factory;
+namespace Tests\ExpenseManager\Cli\Factory;
 
-use ExpenseManagerCli\Factory\CommandBusFactory;
+use ExpenseManager\Cli\Factory\CommandBusFactory;
 use Innmind\CommandBus\CommandBus;
 
 class CommandBusFactoryTest extends \PHPUnit_Framework_TestCase

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExpenseManagerCli\Entity\Budget;
+namespace ExpenseManager\Cli\Entity\Budget;
 
-use ExpenseManagerCli\Exception\InvalidArgumentException;
+use ExpenseManager\Cli\Exception\InvalidArgumentException;
 use ExpenseManager\Entity\Budget\IdentityInterface;
 
 final class Identity implements IdentityInterface

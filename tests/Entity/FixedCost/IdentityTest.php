@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\ExpenseManagerCli\Entity\FixedCost;
+namespace Tests\ExpenseManager\Cli\Entity\FixedCost;
 
-use ExpenseManagerCli\Entity\FixedCost\Identity;
+use ExpenseManager\Cli\Entity\FixedCost\Identity;
 use ExpenseManager\Entity\FixedCost\IdentityInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -20,7 +20,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ExpenseManagerCli\Exception\InvalidArgumentException
+     * @expectedException ExpenseManager\Cli\Exception\InvalidArgumentException
      */
     public function testThrowWhenInvalidValue()
     {
