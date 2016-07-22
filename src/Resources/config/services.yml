@@ -26,6 +26,12 @@ services:
             - '@command_bus'
             - '@repository.category'
 
+    command.budget.list:
+        class: ExpenseManager\Cli\Command\Budget\ListCommand
+        arguments:
+            - '@repository.budget'
+            - '@repository.category'
+
     command.expense.create:
         class: ExpenseManager\Cli\Command\Expense\CreateCommand
         arguments:
