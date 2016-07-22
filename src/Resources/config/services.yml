@@ -37,6 +37,12 @@ services:
         arguments:
             - '@command_bus'
 
+    command.fixed_cost.create:
+        class: ExpenseManager\Cli\Command\FixedCost\CreateCommand
+        arguments:
+            - '@command_bus'
+            - '@repository.category'
+
     command_bus: '@command_bus.flush'
 
     command_bus.default:
@@ -49,6 +55,7 @@ services:
                 ExpenseManager\Command\SpecifyExpenseNote: '@handler.specify_expense_note'
                 ExpenseManager\Command\CreateOneOffIncome: '@handler.create_one_off_income'
                 ExpenseManager\Command\SpecifyOneOffIncomeNote: '@handler.specify_one_off_income_note'
+                ExpenseManager\Command\CreateFixedCost: '@handler.create_fixed_cost'
         factory:
             - ExpenseManager\Cli\Factory\CommandBusFactory
             - make

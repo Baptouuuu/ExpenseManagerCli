@@ -30,3 +30,9 @@ services:
         class: ExpenseManager\Handler\SpecifyOneOffIncomeNoteHandler
         arguments:
             - '@repository.one_off_income'
+
+    handler.create_fixed_cost:
+        class: ExpenseManager\Handler\CreateFixedCostHandler
+        arguments:
+            - '@repository.fixed_cost'
+            - '@repository.category'
