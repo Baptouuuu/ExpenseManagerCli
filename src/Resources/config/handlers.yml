@@ -36,3 +36,8 @@ services:
         arguments:
             - '@repository.fixed_cost'
             - '@repository.category'
+
+    handler.create_income:
+        class: ExpenseManager\Handler\CreateIncomeHandler
+        arguments:
+            - '@repository.income'
