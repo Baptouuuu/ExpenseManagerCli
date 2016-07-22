@@ -9,3 +9,14 @@ services:
         class: ExpenseManager\Handler\CreateCategoryHandler
         arguments:
             - '@repository.category'
+
+    handler.create_expense:
+        class: ExpenseManager\Handler\CreateExpenseHandler
+        arguments:
+            - '@repository.expense'
+            - '@repository.category'
+
+    handler.specify_expense_note:
+        class: ExpenseManager\Handler\SpecifyExpenseNoteHandler
+        arguments:
+            - '@repository.expense'

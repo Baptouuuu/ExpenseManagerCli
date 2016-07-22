@@ -26,6 +26,12 @@ services:
             - '@command_bus'
             - '@repository.category'
 
+    command.expense.create:
+        class: ExpenseManager\Cli\Command\Expense\CreateCommand
+        arguments:
+            - '@command_bus'
+            - '@repository.category'
+
     command_bus: '@command_bus.default'
 
     command_bus.default:
@@ -34,6 +40,8 @@ services:
             -
                 ExpenseManager\Command\CreateBudget: '@handler.create_budget'
                 ExpenseManager\Command\CreateCategory: '@handler.create_category'
+                ExpenseManager\Command\CreateExpense: '@handler.create_expense'
+                ExpenseManager\Command\SpecifyExpenseNote: '@handler.specify_expense_note'
         factory:
             - ExpenseManager\Cli\Factory\CommandBusFactory
             - make
