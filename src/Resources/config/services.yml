@@ -20,6 +20,11 @@ services:
         arguments:
             - '@command_bus'
 
+    command.category.list:
+        class: ExpenseManager\Cli\Command\Category\ListCommand
+        arguments:
+            - '@repository.category'
+
     command.budget.create:
         class: ExpenseManager\Cli\Command\Budget\CreateCommand
         arguments:
