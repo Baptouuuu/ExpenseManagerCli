@@ -60,6 +60,12 @@ services:
             - '@command_bus'
             - '@repository.category'
 
+    command.fixed_cost.list:
+        class: ExpenseManager\Cli\Command\FixedCost\ListCommand
+        arguments:
+            - '@repository.fixed_cost'
+            - '@repository.category'
+
     command.income.create:
         class: ExpenseManager\Cli\Command\Income\CreateCommand
         arguments:
