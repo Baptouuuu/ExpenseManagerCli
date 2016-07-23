@@ -59,7 +59,7 @@ services:
         arguments:
             - '@command_bus'
 
-    command_bus: '@command_bus.dispatch_domain_events'
+    command_bus: '@command_bus.clear_entities_recorded_events'
     event_bus: '@event_bus.queue'
 
     command_bus.default:
@@ -92,6 +92,12 @@ services:
             - '@command_bus.flush'
             - '@storage.unit_of_work'
             - '@event_bus'
+
+    command_bus.clear_entities_recorded_events:
+        class: ExpenseManager\Cli\CommandBus\ClearEntitiesRecordedEventsCommandBus
+        arguments:
+            - '@command_bus.dispatch_domain_events'
+            - '@storage.unit_of_work'
 
     event_bus.container_aware:
         class: ExpenseManager\Cli\EventBus\ContainerAwareEventBus
