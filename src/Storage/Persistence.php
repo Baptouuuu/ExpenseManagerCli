@@ -7,34 +7,30 @@ use ExpenseManager\Cli\Exception\InvalidArgumentException;
 use Innmind\Filesystem\{
     AdapterInterface,
     File,
-    Stream\StringStream,
-    Directory
+    Stream\StringStream
 };
 use Innmind\Immutable\{
     MapInterface,
-    Map,
     Set,
     SetInterface
 };
 
 final class Persistence
 {
-    private $filesystem;
-    private $folders;
+    private $adapters;
     private $normalizers;
     private $denormalizers;
     private $uow;
 
     public function __construct(
-        AdapterInterface $filesystem,
-        MapInterface $folders,
+        MapInterface $adapters,
         MapInterface $normalizers,
         MapInterface $denormalizers,
         UnitOfWork $uow
     ) {
         if (
-            (string) $folders->keyType() !== 'string' ||
-            (string) $folders->valueType() !== 'string' ||
+            (string) $adapters->keyType() !== 'string' ||
+            (string) $adapters->valueType() !== AdapterInterface::class ||
             (string) $normalizers->keyType() !== 'string' ||
             (string) $normalizers->valueType() !== NormalizerInterface::class ||
             (string) $denormalizers->keyType() !== 'string' ||
@@ -43,8 +39,7 @@ final class Persistence
             throw new InvalidArgumentException;
         }
 
-        $this->filesystem = $filesystem;
-        $this->folders = $folders;
+        $this->adapters = $adapters;
         $this->normalizers = $normalizers;
         $this->denormalizers = $denormalizers;
         $this->uow = $uow;
@@ -66,19 +61,15 @@ final class Persistence
             ->normalizers
             ->get($class)
             ->normalize($object);
-        $folder = $this->folders->get($class);
-
-        if (!$this->filesystem->has($folder)) {
-            $this->filesystem->add(new Directory($folder));
-        }
-
-        $directory = $this->filesystem->get($folder);
-        $this->filesystem->add($directory->add(
-            new File(
-                $pair->key(),
-                new StringStream(json_encode($pair->value())."\n")
-            )
-        ));
+        $this
+            ->adapters
+            ->get($class)
+            ->add(
+                new File(
+                    $pair->key(),
+                    new StringStream(json_encode($pair->value())."\n")
+                )
+            );
 
         if ($this->uow->handles($class)) {
             $this->uow->add($pair->key(), $object);
@@ -93,15 +84,9 @@ final class Persistence
             return true;
         }
 
-        $folder = $this->folders->get($class);
-
-        if (!$this->filesystem->has($folder)) {
-            return false;
-        }
-
         return $this
-            ->filesystem
-            ->get($folder)
+            ->adapters
+            ->get($class)
             ->has($id);
     }
 
@@ -118,8 +103,8 @@ final class Persistence
         }
 
         $file = $this
-            ->filesystem
-            ->get($this->folders->get($class))
+            ->adapters
+            ->get($class)
             ->get($id);
 
         $object = $this
@@ -139,20 +124,11 @@ final class Persistence
 
     public function remove(string $class, string $id): self
     {
+        $adapter = $this->adapters->get($class);
         $this->uow->remove($class, $id);
-        $adapter = $this->folders->get($class);
-        $folder = $this->folders->get($class);
 
-        if (!$this->filesystem->has($folder)) {
-            return $this;
-        }
-
-        $directory = $this
-            ->filesystem
-            ->get($folder);
-
-        if ($directory->has($id)) {
-            $this->filesystem->add($directory->remove($id));
+        if ($adapter->has($id)) {
+            $adapter->remove($id);
         }
 
         return $this;
@@ -165,26 +141,17 @@ final class Persistence
      */
     public function all(string $class): SetInterface
     {
-        $set = new Set($class);
-        $folder = $this->folders->get($class);
-
-        if (!$this->filesystem->has($folder)) {
-            return $set;
-        }
-
-        $directory = $this->filesystem->get($folder);
-        $toIgnore = (new Set('string'))
-            ->add('.')
-            ->add('..');
-
-        foreach ($directory as $file) {
-            if ($toIgnore->contains((string) $file->name())) {
-                continue;
-            }
-
-            $set = $set->add($this->get($class, (string) $file->name()));
-        }
-
-        return $set;
+        return $this
+            ->adapters
+            ->get($class)
+            ->all()
+            ->reduce(
+                new Set($class),
+                function(Set $carry, string $id): Set {
+                    return $carry->add(
+                        $this->get((string) $carry->type(), $id)
+                    );
+                }
+            );
     }
 }

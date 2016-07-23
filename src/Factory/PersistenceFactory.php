@@ -15,20 +15,18 @@ use Innmind\Immutable\Map;
 final class PersistenceFactory
 {
     public static function make(
-        AdapterInterface $filesystem,
         array $adapters,
         array $normalizers,
         array $denormalizers,
         UnitOfWork $uow
     ): Persistence {
         return new Persistence(
-            $filesystem,
             array_reduce(
                 array_keys($adapters),
                 function(Map $carry, string $class) use ($adapters): Map {
                     return $carry->put($class, $adapters[$class]);
                 },
-                new Map('string', 'string')
+                new Map('string', AdapterInterface::class)
             ),
             array_reduce(
                 array_keys($normalizers),

@@ -18,8 +18,7 @@ class PersistenceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testMake()
     {
         $persistence = PersistenceFactory::make(
-            new MemoryAdapter,
-            [Category::class => 'category'],
+            [Category::class => new MemoryAdapter],
             [Category::class => new CategoryNormalizer],
             [Category::class => new CategoryDenormalizer],
             UnitOfWorkFactory::make([Category::class])
