@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d8131e0db5ffdaa46462693639b94ce",
-    "content-hash": "96c865e57aec200a9309181b9ff9f88a",
+    "hash": "d36bda37811392b57feaa9d5dbd14a21",
+    "content-hash": "99c4e502f5c88c7da4969b903c82a42f",
     "packages": [
         {
             "name": "baptouuuu/expense-manager",
@@ -141,29 +141,30 @@
         },
         {
             "name": "innmind/filesystem",
-            "version": "1.2.0",
-            "target-dir": "Innmind/Filesystem",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Innmind/Filesystem.git",
-                "reference": "7b69bf87e5b05647e2ed17377f093b3a83b0fc6c"
+                "reference": "d9fa5b81337e037f68707e1aaf1cd6fa731ec3a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Innmind/Filesystem/zipball/7b69bf87e5b05647e2ed17377f093b3a83b0fc6c",
-                "reference": "7b69bf87e5b05647e2ed17377f093b3a83b0fc6c",
+                "url": "https://api.github.com/repos/Innmind/Filesystem/zipball/d9fa5b81337e037f68707e1aaf1cd6fa731ec3a8",
+                "reference": "d9fa5b81337e037f68707e1aaf1cd6fa731ec3a8",
                 "shasum": ""
             },
             "require": {
                 "innmind/event-bus": "^1.0",
                 "innmind/immutable": "^1.5",
                 "php": ">=7.0",
-                "symfony/filesystem": "^3.0"
+                "symfony/filesystem": "^3.0",
+                "symfony/finder": "~3.0"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Innmind\\Filesystem": ""
+                "psr-4": {
+                    "Innmind\\Filesystem\\": "src/",
+                    "Tests\\Innmind\\Filesystem\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -181,7 +182,7 @@
             "keywords": [
                 "filesystem"
             ],
-            "time": "2016-06-18 15:51:57"
+            "time": "2016-07-23 12:11:26"
         },
         {
             "name": "innmind/immutable",
@@ -656,6 +657,55 @@
                 }
             ],
             "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-06-29 05:41:56"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/8201978de88a9fa0923e18601bb17f1df9c721e7",
+                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
             "time": "2016-06-29 05:41:56"
         },

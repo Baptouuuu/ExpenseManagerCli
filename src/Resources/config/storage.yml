@@ -94,7 +94,7 @@ services:
             - make
 
     storage.filesystem:
-        class: ExpenseManager\Cli\Storage\FilesystemAdapter
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
         public: false
         arguments:
             - '%wallet_path%'
