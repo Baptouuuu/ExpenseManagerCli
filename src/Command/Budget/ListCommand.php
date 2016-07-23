@@ -27,12 +27,7 @@ final class ListCommand extends Command
     ) {
         $this->budgetRepository = $budgetRepository;
         $this->categoryRepository = $categoryRepository;
-        parent::__construct();
-    }
-
-    protected function configure()
-    {
-        $this->setName('budget:list');
+        parent::__construct('budget:list');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

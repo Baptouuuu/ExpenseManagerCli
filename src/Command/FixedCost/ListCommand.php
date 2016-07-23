@@ -26,12 +26,7 @@ final class ListCommand extends Command
     ) {
         $this->costRepository = $costRepository;
         $this->categoryRepository = $categoryRepository;
-        parent::__construct();
-    }
-
-    protected function configure()
-    {
-        $this->setName('fixed-cost:list');
+        parent::__construct('fixed-cost:list');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

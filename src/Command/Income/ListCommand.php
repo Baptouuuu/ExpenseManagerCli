@@ -21,12 +21,7 @@ final class ListCommand extends Command
     public function __construct(IncomeRepositoryInterface $repository)
     {
         $this->repository = $repository;
-        parent::__construct();
-    }
-
-    protected function configure()
-    {
-        $this->setName('income:list');
+        parent::__construct('income:list');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -20,12 +20,7 @@ final class ListCommand extends Command
     public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
-        parent::__construct();
-    }
-
-    protected function configure()
-    {
-        $this->setName('category:list');
+        parent::__construct('category:list');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

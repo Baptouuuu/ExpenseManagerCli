@@ -24,14 +24,7 @@ final class InitCommand extends Command
     public function __construct(AdapterInterface $filesystem)
     {
         $this->filesystem = $filesystem;
-        parent::__construct();
-    }
-
-    protected function configure()
-    {
-        $this
-            ->setName('init')
-            ->setDescription('Initialize the app');
+        parent::__construct('init');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
