@@ -71,6 +71,11 @@ services:
         arguments:
             - '@command_bus'
 
+    command.income.list:
+        class: ExpenseManager\Cli\Command\Income\ListCommand
+        arguments:
+            - '@repository.income'
+
     command_bus: '@command_bus.queue'
     event_bus: '@event_bus.queue'
 
