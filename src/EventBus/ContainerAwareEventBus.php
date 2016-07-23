@@ -15,6 +15,7 @@ use Innmind\Immutable\{
     Set,
     Map
 };
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class ContainerAwareEventBus implements EventBusInterface
 {
