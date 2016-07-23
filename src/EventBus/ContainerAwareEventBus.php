@@ -53,7 +53,7 @@ final class ContainerAwareEventBus implements EventBusInterface
 
         $this->bus->dispatch($event);
 
-        return this;
+        return $this;
     }
 
     private function initialize()
