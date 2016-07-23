@@ -60,6 +60,7 @@ services:
             - '@command_bus'
 
     command_bus: '@command_bus.flush'
+    event_bus: '@event_bus.queue'
 
     command_bus.default:
         class: Innmind\CommandBus\CommandBus
@@ -83,3 +84,17 @@ services:
             - '@command_bus.default'
             - '@storage.unit_of_work'
             - '@storage.persistence'
+
+    event_bus.container_aware:
+        class: ExpenseManager\Cli\EventBus\ContainerAwareEventBus
+        arguments:
+            - '@service_container'
+            - []
+        factory:
+            - ExpenseManager\Cli\Factory\ContainerAwareEventBusFactory
+            - make
+
+    event_bus.queue:
+        class: Innmind\EventBus\QueueableEventBus
+        arguments:
+            - '@event_bus.container_aware'
