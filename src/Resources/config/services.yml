@@ -63,19 +63,20 @@ services:
     event_bus: '@event_bus.queue'
 
     command_bus.default:
-        class: Innmind\CommandBus\CommandBus
+        class: ExpenseManager\Cli\CommandBus\ContainerAwareCommandBus
         arguments:
+            - '@service_container'
             -
-                ExpenseManager\Command\CreateBudget: '@handler.create_budget'
-                ExpenseManager\Command\CreateCategory: '@handler.create_category'
-                ExpenseManager\Command\CreateExpense: '@handler.create_expense'
-                ExpenseManager\Command\SpecifyExpenseNote: '@handler.specify_expense_note'
-                ExpenseManager\Command\CreateOneOffIncome: '@handler.create_one_off_income'
-                ExpenseManager\Command\SpecifyOneOffIncomeNote: '@handler.specify_one_off_income_note'
-                ExpenseManager\Command\CreateFixedCost: '@handler.create_fixed_cost'
-                ExpenseManager\Command\CreateIncome: '@handler.create_income'
+                ExpenseManager\Command\CreateBudget: handler.create_budget
+                ExpenseManager\Command\CreateCategory: handler.create_category
+                ExpenseManager\Command\CreateExpense: handler.create_expense
+                ExpenseManager\Command\SpecifyExpenseNote: handler.specify_expense_note
+                ExpenseManager\Command\CreateOneOffIncome: handler.create_one_off_income
+                ExpenseManager\Command\SpecifyOneOffIncomeNote: handler.specify_one_off_income_note
+                ExpenseManager\Command\CreateFixedCost: handler.create_fixed_cost
+                ExpenseManager\Command\CreateIncome: handler.create_income
         factory:
-            - ExpenseManager\Cli\Factory\CommandBusFactory
+            - ExpenseManager\Cli\Factory\ContainerAwareCommandBusFactory
             - make
 
     command_bus.flush:
