@@ -1,0 +1,66 @@
+services:
+    command.init:
+        class: ExpenseManager\Cli\Command\InitCommand
+        arguments:
+            - '@storage.config'
+
+    command.category.create:
+        class: ExpenseManager\Cli\Command\Category\CreateCommand
+        arguments:
+            - '@command_bus'
+
+    command.category.list:
+        class: ExpenseManager\Cli\Command\Category\ListCommand
+        arguments:
+            - '@repository.category'
+
+    command.budget.create:
+        class: ExpenseManager\Cli\Command\Budget\CreateCommand
+        arguments:
+            - '@command_bus'
+            - '@repository.category'
+
+    command.budget.list:
+        class: ExpenseManager\Cli\Command\Budget\ListCommand
+        arguments:
+            - '@repository.budget'
+            - '@repository.category'
+
+    command.expense.create:
+        class: ExpenseManager\Cli\Command\Expense\CreateCommand
+        arguments:
+            - '@command_bus'
+            - '@repository.category'
+
+    command.expense.list:
+        class: ExpenseManager\Cli\Command\Expense\ListCommand
+        arguments:
+            - '@repository.expense'
+            - '@repository.category'
+
+    command.one_off_income.create:
+        class: ExpenseManager\Cli\Command\OneOffIncome\CreateCommand
+        arguments:
+            - '@command_bus'
+
+    command.fixed_cost.create:
+        class: ExpenseManager\Cli\Command\FixedCost\CreateCommand
+        arguments:
+            - '@command_bus'
+            - '@repository.category'
+
+    command.fixed_cost.list:
+        class: ExpenseManager\Cli\Command\FixedCost\ListCommand
+        arguments:
+            - '@repository.fixed_cost'
+            - '@repository.category'
+
+    command.income.create:
+        class: ExpenseManager\Cli\Command\Income\CreateCommand
+        arguments:
+            - '@command_bus'
+
+    command.income.list:
+        class: ExpenseManager\Cli\Command\Income\ListCommand
+        arguments:
+            - '@repository.income'

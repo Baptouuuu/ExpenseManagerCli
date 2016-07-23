@@ -1,0 +1,44 @@
+services:
+    command_bus: '@command_bus.queue'
+
+    command_bus.default:
+        class: ExpenseManager\Cli\CommandBus\ContainerAwareCommandBus
+        arguments:
+            - '@service_container'
+            -
+                ExpenseManager\Command\CreateBudget: handler.create_budget
+                ExpenseManager\Command\CreateCategory: handler.create_category
+                ExpenseManager\Command\CreateExpense: handler.create_expense
+                ExpenseManager\Command\SpecifyExpenseNote: handler.specify_expense_note
+                ExpenseManager\Command\CreateOneOffIncome: handler.create_one_off_income
+                ExpenseManager\Command\SpecifyOneOffIncomeNote: handler.specify_one_off_income_note
+                ExpenseManager\Command\CreateFixedCost: handler.create_fixed_cost
+                ExpenseManager\Command\CreateIncome: handler.create_income
+        factory:
+            - ExpenseManager\Cli\Factory\ContainerAwareCommandBusFactory
+            - make
+
+    command_bus.flush:
+        class: ExpenseManager\Cli\CommandBus\FlushCommandBus
+        arguments:
+            - '@command_bus.default'
+            - '@storage.unit_of_work'
+            - '@storage.persistence'
+
+    command_bus.dispatch_domain_events:
+        class: ExpenseManager\Cli\CommandBus\DispatchDomainEventsCommandBus
+        arguments:
+            - '@command_bus.flush'
+            - '@storage.unit_of_work'
+            - '@event_bus'
+
+    command_bus.clear_entities_recorded_events:
+        class: ExpenseManager\Cli\CommandBus\ClearEntitiesRecordedEventsCommandBus
+        arguments:
+            - '@command_bus.dispatch_domain_events'
+            - '@storage.unit_of_work'
+
+    command_bus.queue:
+        class: Innmind\CommandBus\QueueableCommandBus
+        arguments:
+            - '@command_bus.clear_entities_recorded_events'

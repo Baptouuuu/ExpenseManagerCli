@@ -1,4 +1,9 @@
 services:
+    storage.config:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        arguments:
+            - %user_home%
+
     storage.denormalizer.budget:
         class: ExpenseManager\Cli\Storage\Denormalizer\BudgetDenormalizer
         public: false

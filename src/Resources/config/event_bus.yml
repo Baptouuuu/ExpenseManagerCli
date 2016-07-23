@@ -1,0 +1,16 @@
+services:
+    event_bus: '@event_bus.queue'
+
+    event_bus.container_aware:
+        class: ExpenseManager\Cli\EventBus\ContainerAwareEventBus
+        arguments:
+            - '@service_container'
+            - []
+        factory:
+            - ExpenseManager\Cli\Factory\ContainerAwareEventBusFactory
+            - make
+
+    event_bus.queue:
+        class: Innmind\EventBus\QueueableEventBus
+        arguments:
+            - '@event_bus.container_aware'
