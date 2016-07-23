@@ -52,12 +52,13 @@ final class ListCommand extends Command
                             ->reduce(
                                 new Set('string'),
                                 function(Set $carry, IdentityInterface $identity): Set {
-                                    return $carry->add(
-                                        $this
-                                            ->categoryRepository
-                                            ->get($identity)
-                                            ->name()
-                                    );
+                                    $category = $this->categoryRepository->get($identity);
+
+                                    return $carry->add(sprintf(
+                                        '<fg=%s>%s</>',
+                                        $category->color(),
+                                        $category->name()
+                                    ));
                                 }
                             )
                             ->join(', ')
