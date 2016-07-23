@@ -59,7 +59,7 @@ services:
         arguments:
             - '@command_bus'
 
-    command_bus: '@command_bus.flush'
+    command_bus: '@command_bus.dispatch_domain_events'
     event_bus: '@event_bus.queue'
 
     command_bus.default:
@@ -85,6 +85,13 @@ services:
             - '@command_bus.default'
             - '@storage.unit_of_work'
             - '@storage.persistence'
+
+    command_bus.dispatch_domain_events:
+        class: ExpenseManager\Cli\CommandBus\DispatchDomainEventsCommandBus
+        arguments:
+            - '@command_bus.flush'
+            - '@storage.unit_of_work'
+            - '@event_bus'
 
     event_bus.container_aware:
         class: ExpenseManager\Cli\EventBus\ContainerAwareEventBus
