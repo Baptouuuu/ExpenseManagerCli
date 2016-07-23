@@ -47,12 +47,12 @@ final class CreateCommand extends Command
         $data = $categories->reduce(
             ['choices' => [], 'identities' => []],
             function(array $carry, Category $category): array {
-                $carry['choices'][] = sprintf(
+                $carry['choices'][] = $name = sprintf(
                     '<fg=%s>%s</>',
                     $category->color(),
                     $category->name()
                 );
-                $carry['identities'][] = $category->identity();
+                $carry['identities'][$name] = $category->identity();
 
                 return $carry;
             }
@@ -67,8 +67,8 @@ final class CreateCommand extends Command
         $choices = $helper->ask($input, $output, $question);
         $identities = [];
 
-        foreach ($choices as $key => $value) {
-            $identities[] = $data['identities'][$key];
+        foreach ($choices as $value) {
+            $identities[] = $data['identities'][$value];
         }
 
         $this->commandBus->handle(
