@@ -6,7 +6,8 @@ namespace ExpenseManager\Cli\Command\FixedCost;
 use ExpenseManager\{
     Repository\FixedCostRepositoryInterface,
     Repository\CategoryRepositoryInterface,
-    Entity\FixedCost
+    Entity\FixedCost,
+    Cli\RelativeDay
 };
 use Symfony\Component\Console\{
     Command\Command,
@@ -43,10 +44,10 @@ final class ListCommand extends Command
                 function(OutputInterface $output, FixedCost $cost): OutputInterface {
                     $category = $this->categoryRepository->get($cost->category());
                     $output->writeln(sprintf(
-                        '<fg=green>%s</> <fg=yellow>%01.2f</> to be applied on <fg=green>%s</> in <fg=%s>%s</>',
+                        '<fg=green>%s</> <fg=yellow>%01.2f</> to be applied the <fg=green>%s</> in <fg=%s>%s</>',
                         $cost->name(),
                         $cost->amount()->value() / 100,
-                        $cost->applyDay()->value(),
+                        new RelativeDay($cost->applyDay()->value()),
                         $category->color(),
                         $category->name()
                     ));
