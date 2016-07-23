@@ -59,7 +59,7 @@ services:
         arguments:
             - '@command_bus'
 
-    command_bus: '@command_bus.clear_entities_recorded_events'
+    command_bus: '@command_bus.queue'
     event_bus: '@event_bus.queue'
 
     command_bus.default:
@@ -98,6 +98,11 @@ services:
         arguments:
             - '@command_bus.dispatch_domain_events'
             - '@storage.unit_of_work'
+
+    command_bus.queue:
+        class: Innmind\CommandBus\QueueableCommandBus
+        arguments:
+            - '@command_bus.clear_entities_recorded_events'
 
     event_bus.container_aware:
         class: ExpenseManager\Cli\EventBus\ContainerAwareEventBus
