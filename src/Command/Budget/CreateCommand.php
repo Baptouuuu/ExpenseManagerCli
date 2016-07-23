@@ -47,7 +47,11 @@ final class CreateCommand extends Command
         $data = $categories->reduce(
             ['choices' => [], 'identities' => []],
             function(array $carry, Category $category): array {
-                $carry['choices'][] = $category->name();
+                $carry['choices'][] = sprintf(
+                    '<fg=%s>%s</>',
+                    $category->color(),
+                    $category->name()
+                );
                 $carry['identities'][] = $category->identity();
 
                 return $carry;
