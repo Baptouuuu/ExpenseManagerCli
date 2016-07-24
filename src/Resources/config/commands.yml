@@ -43,6 +43,11 @@ services:
         arguments:
             - '@command_bus'
 
+    command.one_off_income.list:
+        class: ExpenseManager\Cli\Command\OneOffIncome\ListCommand
+        arguments:
+            - '@repository.one_off_income'
+
     command.fixed_cost.create:
         class: ExpenseManager\Cli\Command\FixedCost\CreateCommand
         arguments:
