@@ -4,6 +4,10 @@ declare(strict_types = 1);
 
 require __DIR__.'/vendor/autoload.php';
 
+use Innmind\EventBusBundle\DependencyInjection\Compiler\{
+    BuildEventBusStackPass,
+    RegisterListenersPass
+};
 use Symfony\Component\{
     Console\Application,
     DependencyInjection\ContainerBuilder,
@@ -28,6 +32,9 @@ $loader = new DelegatingLoader(
     ])
 );
 $loader->load('services.yml');
+$container
+    ->addCompilerPass(new BuildEventBusStackPass)
+    ->addCompilerPass(new RegisterListenersPass);
 $container->compile();
 
 $app = new Application('ExpenseManager');

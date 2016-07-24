@@ -1,16 +1,25 @@
-services:
-    event_bus: '@event_bus.queue'
+parameters:
+    innmind_event_bus.stack:
+        - queue
+        - default
 
-    event_bus.container_aware:
-        class: ExpenseManager\Cli\EventBus\ContainerAwareEventBus
+services:
+    event_bus: '@innmind_event_bus'
+
+    innmind_event_bus.default:
+        class: Innmind\EventBusBundle\ContainerAwareEventBus
         arguments:
             - '@service_container'
             - []
         factory:
-            - ExpenseManager\Cli\Factory\ContainerAwareEventBusFactory
+            - Innmind\EventBusBundle\Factory\ContainerAwareEventBusFactory
             - make
+        tags:
+            - { name: innmind_event_bus, alias: default }
 
     event_bus.queue:
         class: Innmind\EventBus\QueueableEventBus
         arguments:
-            - '@event_bus.container_aware'
+            - ~
+        tags:
+            - { name: innmind_event_bus, alias: queue }

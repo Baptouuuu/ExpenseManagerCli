@@ -24,7 +24,8 @@
         "symfony/dependency-injection": "~3.0",
         "symfony/config": "~3.0",
         "symfony/yaml": "~3.0",
-        "innmind/command-bus": "^1.0"
+        "innmind/command-bus": "^1.0",
+        "innmind/event-bus-bundle": "~1.0"
     },
     "bin": ["expense-manager"],
     "autoload": {
