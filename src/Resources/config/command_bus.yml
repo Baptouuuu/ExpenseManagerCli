@@ -1,44 +1,54 @@
-services:
-    command_bus: '@command_bus.queue'
+parameters:
+    innmind_command_bus.stack:
+        - queue
+        - clear_entities_recorded_events
+        - dispatch_domain_events
+        - flush
+        - default
 
-    command_bus.default:
-        class: ExpenseManager\Cli\CommandBus\ContainerAwareCommandBus
+services:
+    command_bus: '@innmind_command_bus'
+
+    innmind_command_bus.default:
+        class: Innmind\CommandBusBundle\ContainerAwareCommandBus
         arguments:
             - '@service_container'
-            -
-                ExpenseManager\Command\CreateBudget: handler.create_budget
-                ExpenseManager\Command\CreateCategory: handler.create_category
-                ExpenseManager\Command\CreateExpense: handler.create_expense
-                ExpenseManager\Command\SpecifyExpenseNote: handler.specify_expense_note
-                ExpenseManager\Command\CreateOneOffIncome: handler.create_one_off_income
-                ExpenseManager\Command\SpecifyOneOffIncomeNote: handler.specify_one_off_income_note
-                ExpenseManager\Command\CreateFixedCost: handler.create_fixed_cost
-                ExpenseManager\Command\CreateIncome: handler.create_income
+            - []
         factory:
-            - ExpenseManager\Cli\Factory\ContainerAwareCommandBusFactory
+            - Innmind\CommandBusBundle\Factory\ContainerAwareCommandBusFactory
             - make
+        tags:
+            - { name: innmind_command_bus, alias: default }
 
     command_bus.flush:
         class: ExpenseManager\Cli\CommandBus\FlushCommandBus
         arguments:
-            - '@command_bus.default'
+            - ~
             - '@storage.unit_of_work'
             - '@storage.persistence'
+        tags:
+            - { name: innmind_command_bus, alias: flush }
 
     command_bus.dispatch_domain_events:
         class: ExpenseManager\Cli\CommandBus\DispatchDomainEventsCommandBus
         arguments:
-            - '@command_bus.flush'
+            - ~
             - '@storage.unit_of_work'
             - '@event_bus'
+        tags:
+            - { name: innmind_command_bus, alias: dispatch_domain_events }
 
     command_bus.clear_entities_recorded_events:
         class: ExpenseManager\Cli\CommandBus\ClearEntitiesRecordedEventsCommandBus
         arguments:
-            - '@command_bus.dispatch_domain_events'
+            - ~
             - '@storage.unit_of_work'
+        tags:
+            - { name: innmind_command_bus, alias: clear_entities_recorded_events }
 
     command_bus.queue:
         class: Innmind\CommandBus\QueueableCommandBus
         arguments:
-            - '@command_bus.clear_entities_recorded_events'
+            - ~
+        tags:
+            - { name: innmind_command_bus, alias: queue }

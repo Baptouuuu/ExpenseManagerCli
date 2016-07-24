@@ -8,6 +8,10 @@ use Innmind\EventBusBundle\DependencyInjection\Compiler\{
     BuildEventBusStackPass,
     RegisterListenersPass
 };
+use Innmind\CommandBusBundle\DependencyInjection\Compiler\{
+    BuildCommandBusStackPass,
+    RegisterHandlersPass
+};
 use Symfony\Component\{
     Console\Application,
     DependencyInjection\ContainerBuilder,
@@ -34,7 +38,9 @@ $loader = new DelegatingLoader(
 $loader->load('services.yml');
 $container
     ->addCompilerPass(new BuildEventBusStackPass)
-    ->addCompilerPass(new RegisterListenersPass);
+    ->addCompilerPass(new RegisterListenersPass)
+    ->addCompilerPass(new BuildCommandBusStackPass)
+    ->addCompilerPass(new RegisterHandlersPass);
 $container->compile();
 
 $app = new Application('ExpenseManager');

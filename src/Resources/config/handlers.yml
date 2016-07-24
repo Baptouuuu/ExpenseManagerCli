@@ -4,40 +4,56 @@ services:
         arguments:
             - '@repository.budget'
             - '@repository.category'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateBudget }
 
     handler.create_category:
         class: ExpenseManager\Handler\CreateCategoryHandler
         arguments:
             - '@repository.category'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateCategory }
 
     handler.create_expense:
         class: ExpenseManager\Handler\CreateExpenseHandler
         arguments:
             - '@repository.expense'
             - '@repository.category'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateExpense }
 
     handler.specify_expense_note:
         class: ExpenseManager\Handler\SpecifyExpenseNoteHandler
         arguments:
             - '@repository.expense'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\SpecifyExpenseNote }
 
     handler.create_one_off_income:
         class: ExpenseManager\Handler\CreateOneOffIncomeHandler
         arguments:
             - '@repository.one_off_income'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateOneOffIncome }
 
     handler.specify_one_off_income_note:
         class: ExpenseManager\Handler\SpecifyOneOffIncomeNoteHandler
         arguments:
             - '@repository.one_off_income'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\SpecifyOneOffIncomeNote }
 
     handler.create_fixed_cost:
         class: ExpenseManager\Handler\CreateFixedCostHandler
         arguments:
             - '@repository.fixed_cost'
             - '@repository.category'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateFixedCost }
 
     handler.create_income:
         class: ExpenseManager\Handler\CreateIncomeHandler
         arguments:
             - '@repository.income'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateIncome }

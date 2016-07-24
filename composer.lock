@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2d6da6c3bcea94c62d2b30b24d966af",
-    "content-hash": "151b946a7e170b0cdbf11f89ecd61c84",
+    "hash": "203835153d408dc69e0518087098bd25",
+    "content-hash": "a8b82b76e016f3d3299c1eda7907f171",
     "packages": [
         {
             "name": "baptouuuu/expense-manager",
@@ -95,6 +95,52 @@
                 "ddd"
             ],
             "time": "2016-07-20 06:22:14"
+        },
+        {
+            "name": "innmind/command-bus-bundle",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/CommandBusBundle.git",
+                "reference": "5eb394a80ef04a9a664dc13ff0633c08c0c3f57d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/CommandBusBundle/zipball/5eb394a80ef04a9a664dc13ff0633c08c0c3f57d",
+                "reference": "5eb394a80ef04a9a664dc13ff0633c08c0c3f57d",
+                "shasum": ""
+            },
+            "require": {
+                "innmind/command-bus": "~1.0",
+                "php": "~7.0",
+                "symfony/config": "~3.0",
+                "symfony/dependency-injection": "~3.0",
+                "symfony/http-kernel": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\CommandBusBundle\\": "src/",
+                    "Tests\\Innmind\\CommandBusBundle\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "langlade.baptiste@gmail.com"
+                }
+            ],
+            "description": "Command Bus Bundle",
+            "homepage": "http://github.com/Innmind/CommandBusBundle",
+            "keywords": [
+                "command bus",
+                "ddd"
+            ],
+            "time": "2016-07-24 14:48:40"
         },
         {
             "name": "innmind/event-bus",
