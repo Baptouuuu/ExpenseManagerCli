@@ -3,3 +3,10 @@ services:
         class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
         arguments:
             - '@service_container'
+
+    listener.disable_command_while_not_initialized:
+        class: ExpenseManager\Cli\EventListener\DisableCommandWhileNotInitializedListener
+        arguments:
+            - '@storage.config'
+        tags:
+            - { name: kernel.event_subscriber }
