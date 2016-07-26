@@ -19,7 +19,8 @@ use Symfony\Component\{
     DependencyInjection\Loader\PhpFileLoader,
     Config\FileLocator,
     Config\Loader\DelegatingLoader,
-    Config\Loader\LoaderResolver
+    Config\Loader\LoaderResolver,
+    EventDispatcher\DependencyInjection\RegisterListenersPass as RegisterDispatcherListenersPass
 };
 
 final class Application
@@ -31,21 +32,23 @@ final class Application
     {
         $this->console = new Console('ExpenseManager');
         $this->container = $this->buildContainer($configPath);
-        $this->registerCommands([
-            'command.init',
-            'command.category.create',
-            'command.category.list',
-            'command.budget.create',
-            'command.budget.list',
-            'command.expense.create',
-            'command.expense.list',
-            'command.one_off_income.create',
-            'command.one_off_income.list',
-            'command.fixed_cost.create',
-            'command.fixed_cost.list',
-            'command.income.create',
-            'command.income.list',
-        ]);
+        $this
+            ->registerCommands([
+                'command.init',
+                'command.category.create',
+                'command.category.list',
+                'command.budget.create',
+                'command.budget.list',
+                'command.expense.create',
+                'command.expense.list',
+                'command.one_off_income.create',
+                'command.one_off_income.list',
+                'command.fixed_cost.create',
+                'command.fixed_cost.list',
+                'command.income.create',
+                'command.income.list',
+            ])
+            ->registerDispatcher();
     }
 
     public function run(): int
@@ -73,16 +76,28 @@ final class Application
             ->addCompilerPass(new BuildEventBusStackPass)
             ->addCompilerPass(new RegisterListenersPass)
             ->addCompilerPass(new BuildCommandBusStackPass)
-            ->addCompilerPass(new RegisterHandlersPass);
+            ->addCompilerPass(new RegisterHandlersPass)
+            ->addCompilerPass(new RegisterDispatcherListenersPass);
         $container->compile();
 
         return $container;
     }
 
-    private function registerCommands(array $commands)
+    private function registerCommands(array $commands): self
     {
         foreach ($commands as $command) {
             $this->console->add($this->container->get($command));
         }
+
+        return $this;
+    }
+
+    private function registerDispatcher(): self
+    {
+        $this->console->setDispatcher(
+            $this->container->get('event_dispatcher')
+        );
+
+        return $this;
     }
 }

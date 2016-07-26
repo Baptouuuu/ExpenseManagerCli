@@ -6,3 +6,4 @@ imports:
     - { resource: commands.yml }
     - { resource: command_bus.yml }
     - { resource: event_bus.yml }
+    - { resource: event_dispatcher.yml }
