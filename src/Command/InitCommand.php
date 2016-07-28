@@ -29,7 +29,10 @@ final class InitCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if ($this->filesystem->has('.expense-manager')) {
+        if (
+            $this->filesystem->has('.expense-manager') &&
+            $this->filesystem->get('.expense-manager')->has('config.json')
+        ) {
             $output->writeln('<fg=yellow>It seems your wallet is already initialized</>');
 
             return;
