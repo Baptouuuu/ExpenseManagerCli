@@ -57,3 +57,42 @@ services:
             - '@repository.income'
         tags:
             - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateIncome }
+
+    handler.create_month_report:
+        class: ExpenseManager\Handler\CreateMonthReportHandler
+        arguments:
+            - '@repository.month_report'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateMonthReport }
+
+    handler.month_report.apply_expense:
+        class: ExpenseManager\Command\MonthReport\ApplyExpenseHandler
+        arguments:
+            - '@repository.month_report'
+            - '@repository.expense'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\MonthReport\ApplyExpense }
+
+    handler.month_report.apply_income:
+        class: ExpenseManager\Command\MonthReport\ApplyIncomeHandler
+        arguments:
+            - '@repository.month_report'
+            - '@repository.income'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\MonthReport\ApplyIncome }
+
+    handler.month_report.apply_fixed_cost:
+        class: ExpenseManager\Command\MonthReport\ApplyFixedCostHandler
+        arguments:
+            - '@repository.month_report'
+            - '@repository.fixed_cost'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\MonthReport\ApplyFixedCost }
+
+    handler.month_report.apply_one_off_income:
+        class: ExpenseManager\Command\MonthReport\ApplyOneOffIncomeHandler
+        arguments:
+            - '@repository.month_report'
+            - '@repository.one_off_income'
+        tags:
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\MonthReport\ApplyOneOffIncome }
