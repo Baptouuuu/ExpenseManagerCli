@@ -52,7 +52,7 @@ final class CreateMonthReportListener implements EventSubscriberInterface
         $this->bus->handle(
             new CreateMonthReport(
                 new Identity($date),
-                new \DatetimeImmutable($date)
+                $date
             )
         );
     }
