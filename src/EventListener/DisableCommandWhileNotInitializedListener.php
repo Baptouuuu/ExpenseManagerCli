@@ -22,7 +22,7 @@ final class DisableCommandWhileNotInitializedListener implements EventSubscriber
     public static function getSubscribedEvents()
     {
         return [
-            ConsoleEvents::COMMAND => 'disable',
+            ConsoleEvents::COMMAND => [['disable', 100]],
         ];
     }
 
