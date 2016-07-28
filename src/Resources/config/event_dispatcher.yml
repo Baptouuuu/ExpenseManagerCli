@@ -10,3 +10,11 @@ services:
             - '@storage.config'
         tags:
             - { name: kernel.event_subscriber }
+
+    listener.create_month_report:
+        class: ExpenseManager\Cli\EventListener\CreateMonthReportListener
+        arguments:
+            - '@repository.month_report'
+            - '@innmind_command_bus'
+        tags:
+            - { name: kernel.event_subscriber }
