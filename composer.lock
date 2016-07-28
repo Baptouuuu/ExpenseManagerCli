@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Baptouuuu/ExpenseManager.git",
-                "reference": "6ca3eb67093a43ba02a9f99ca76129e5c8c9c41e"
+                "reference": "098fbe6b4ac73d27970b1c0efaa7530960b0a259"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Baptouuuu/ExpenseManager/zipball/6ca3eb67093a43ba02a9f99ca76129e5c8c9c41e",
-                "reference": "6ca3eb67093a43ba02a9f99ca76129e5c8c9c41e",
+                "url": "https://api.github.com/repos/Baptouuuu/ExpenseManager/zipball/098fbe6b4ac73d27970b1c0efaa7530960b0a259",
+                "reference": "098fbe6b4ac73d27970b1c0efaa7530960b0a259",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "expense",
                 "manager"
             ],
-            "time": "2016-07-24 09:04:31"
+            "time": "2016-07-26 06:42:38"
         },
         {
             "name": "innmind/command-bus",

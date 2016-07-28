@@ -28,6 +28,10 @@ services:
         class: ExpenseManager\Cli\Storage\Denormalizer\OneOffIncomeDenormalizer
         public: false
 
+    storage.denormalizer.month_report:
+        class: ExpenseManager\Cli\Storage\Denormalizer\MonthReportDenormalizer
+        public: false
+
     storage.normalizer.budget:
         class: ExpenseManager\Cli\Storage\Normalizer\BudgetNormalizer
         public: false
@@ -52,6 +56,10 @@ services:
         class: ExpenseManager\Cli\Storage\Normalizer\OneOffIncomeNormalizer
         public: false
 
+    storage.normalizer.month_report:
+        class: ExpenseManager\Cli\Storage\Normalizer\MonthReportNormalizer
+        public: false
+
     storage.unit_of_work:
         class: ExpenseManager\Cli\Storage\UnitOfWork
         public: false
@@ -63,6 +71,7 @@ services:
                 - ExpenseManager\Entity\FixedCost
                 - ExpenseManager\Entity\Income
                 - ExpenseManager\Entity\OneOffIncome
+                - ExpenseManager\Entity\MonthReport
         factory:
             - ExpenseManager\Cli\Factory\UnitOfWorkFactory
             - make
@@ -78,6 +87,7 @@ services:
                 ExpenseManager\Entity\FixedCost: '@storage.adapter.fixed_cost'
                 ExpenseManager\Entity\Income: '@storage.adapter.income'
                 ExpenseManager\Entity\OneOffIncome: '@storage.adapter.one_off_income'
+                ExpenseManager\Entity\MonthReport: '@storage.adapter.month_report'
             -
                 ExpenseManager\Entity\Budget: '@storage.normalizer.budget'
                 ExpenseManager\Entity\Category: '@storage.normalizer.category'
@@ -85,6 +95,7 @@ services:
                 ExpenseManager\Entity\FixedCost: '@storage.normalizer.fixed_cost'
                 ExpenseManager\Entity\Income: '@storage.normalizer.income'
                 ExpenseManager\Entity\OneOffIncome: '@storage.normalizer.one_off_income'
+                ExpenseManager\Entity\MonthReport: '@storage.normalizer.month_report'
             -
                 ExpenseManager\Entity\Budget: '@storage.denormalizer.budget'
                 ExpenseManager\Entity\Category: '@storage.denormalizer.category'
@@ -92,6 +103,7 @@ services:
                 ExpenseManager\Entity\FixedCost: '@storage.denormalizer.fixed_cost'
                 ExpenseManager\Entity\Income: '@storage.denormalizer.income'
                 ExpenseManager\Entity\OneOffIncome: '@storage.denormalizer.one_off_income'
+                ExpenseManager\Entity\MonthReport: '@storage.denormalizer.month_report'
             - '@storage.unit_of_work'
         factory:
             - ExpenseManager\Cli\Factory\PersistenceFactory
@@ -132,3 +144,9 @@ services:
         public: false
         arguments:
             - '%wallet_path%/one_off_income'
+
+    storage.adapter.month_report:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/month_report'
