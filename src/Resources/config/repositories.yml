@@ -28,3 +28,8 @@ services:
         class: ExpenseManager\Cli\Repository\OneOffIncomeRepository
         arguments:
             - '@storage.persistence'
+
+    repository.month_report:
+        class: ExpenseManager\Cli\Repository\MonthReportRepository
+        arguments:
+            - '@storage.persistence'
