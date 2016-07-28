@@ -29,8 +29,11 @@ final class DisableCommandWhileNotInitializedListener implements EventSubscriber
     public function disable(ConsoleCommandEvent $event)
     {
         if (
-            $this->filesystem->has('.expense-manager') &&
-            $this->filesystem->get('.expense-manager')->has('config.json')
+            in_array($event->getCommand()->getName(), ['init', 'list']) ||
+            (
+                $this->filesystem->has('.expense-manager') &&
+                $this->filesystem->get('.expense-manager')->has('config.json')
+            )
         ) {
             return;
         }
