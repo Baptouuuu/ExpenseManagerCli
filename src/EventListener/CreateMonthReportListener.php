@@ -44,7 +44,7 @@ final class CreateMonthReportListener implements EventSubscriberInterface
 
         if (
             !$event->commandShouldRun() ||
-            !$this->repository->has(new Identity($date))
+            $this->repository->has(new Identity($date))
         ) {
             return;
         }
