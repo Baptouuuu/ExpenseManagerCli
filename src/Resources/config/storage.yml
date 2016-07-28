@@ -81,13 +81,13 @@ services:
         public: false
         arguments:
             -
-                ExpenseManager\Entity\Budget: '@storage.adapter.budget'
-                ExpenseManager\Entity\Category: '@storage.adapter.category'
-                ExpenseManager\Entity\Expense: '@storage.adapter.expense'
-                ExpenseManager\Entity\FixedCost: '@storage.adapter.fixed_cost'
-                ExpenseManager\Entity\Income: '@storage.adapter.income'
-                ExpenseManager\Entity\OneOffIncome: '@storage.adapter.one_off_income'
-                ExpenseManager\Entity\MonthReport: '@storage.adapter.month_report'
+                ExpenseManager\Entity\Budget: '@storage.adapter.lazy.budget'
+                ExpenseManager\Entity\Category: '@storage.adapter.lazy.category'
+                ExpenseManager\Entity\Expense: '@storage.adapter.lazy.expense'
+                ExpenseManager\Entity\FixedCost: '@storage.adapter.lazy.fixed_cost'
+                ExpenseManager\Entity\Income: '@storage.adapter.lazy.income'
+                ExpenseManager\Entity\OneOffIncome: '@storage.adapter.lazy.one_off_income'
+                ExpenseManager\Entity\MonthReport: '@storage.adapter.lazy.month_report'
             -
                 ExpenseManager\Entity\Budget: '@storage.normalizer.budget'
                 ExpenseManager\Entity\Category: '@storage.normalizer.category'
@@ -150,3 +150,45 @@ services:
         public: false
         arguments:
             - '%wallet_path%/month_report'
+
+    storage.adapter.lazy.budget:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.budget'
+
+    storage.adapter.lazy.category:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.category'
+
+    storage.adapter.lazy.expense:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.expense'
+
+    storage.adapter.lazy.fixed_cost:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.fixed_cost'
+
+    storage.adapter.lazy.income:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.income'
+
+    storage.adapter.lazy.one_off_income:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.one_off_income'
+
+    storage.adapter.lazy.month_report:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.adapter.month_report'

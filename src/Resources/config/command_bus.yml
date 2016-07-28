@@ -1,6 +1,7 @@
 parameters:
     innmind_command_bus.stack:
         - queue
+        - persist_adapters
         - clear_entities_recorded_events
         - dispatch_domain_events
         - flush
@@ -52,3 +53,21 @@ services:
             - ~
         tags:
             - { name: innmind_command_bus, alias: queue }
+
+    command_bus.persist_adapters:
+        class: ExpenseManager\Cli\CommandBus\PersistAdaptersCommandBus
+        arguments:
+            - ~
+            -
+                - '@storage.adapter.lazy.budget'
+                - '@storage.adapter.lazy.category'
+                - '@storage.adapter.lazy.expense'
+                - '@storage.adapter.lazy.fixed_cost'
+                - '@storage.adapter.lazy.income'
+                - '@storage.adapter.lazy.one_off_income'
+                - '@storage.adapter.lazy.month_report'
+        factory:
+                - ExpenseManager\Cli\Factory\PersistAdaptersCommandBusFactory
+                - make
+        tags:
+            - { name: innmind_command_bus, alias: persist_adapters }
