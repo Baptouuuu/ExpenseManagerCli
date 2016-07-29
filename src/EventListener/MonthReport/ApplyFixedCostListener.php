@@ -7,6 +7,7 @@ use ExpenseManager\{
     Repository\FixedCostRepositoryInterface,
     Entity\FixedCost,
     Command\MonthReport\ApplyFixedCost,
+    Event\FixedCostWasCreated,
     Cli\Entity\MonthReport\Identity
 };
 use Innmind\CommandBus\CommandBusInterface;
