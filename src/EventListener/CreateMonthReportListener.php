@@ -34,7 +34,7 @@ final class CreateMonthReportListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ConsoleEvents::COMMAND => 'createReport',
+            ConsoleEvents::COMMAND => [['createReport', 95]],
         ];
     }
 
