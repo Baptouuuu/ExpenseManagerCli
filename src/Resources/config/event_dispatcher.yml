@@ -27,3 +27,12 @@ services:
         tags:
             - { name: kernel.event_subscriber }
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\FixedCostWasCreated }
+
+    listener.month_report.apply_income:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyIncomeListener
+        arguments:
+            - '@innmind_command_bus'
+            - '@repository.income'
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\IncomeWasCreated }
