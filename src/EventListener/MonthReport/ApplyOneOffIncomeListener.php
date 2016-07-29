@@ -23,7 +23,7 @@ final class ApplyOneOffIncomeListener
     {
         $this->bus->handle(
             new ApplyOneOffIncome(
-                new Identity((new \DateTime)->format('Y-m')),
+                new Identity($event->date()->format('Y-m')),
                 $event->identity()
             )
         );
