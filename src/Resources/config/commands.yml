@@ -69,3 +69,8 @@ services:
         class: ExpenseManager\Cli\Command\Income\ListCommand
         arguments:
             - '@repository.income'
+
+    command.month_report:
+        class: ExpenseManager\Cli\Command\MonthReportCommand
+        arguments:
+            - '@repository.month_report'

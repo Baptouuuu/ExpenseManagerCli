@@ -47,6 +47,7 @@ final class Application
                 'command.fixed_cost.list',
                 'command.income.create',
                 'command.income.list',
+                'command.month_report',
             ])
             ->registerDispatcher();
     }
