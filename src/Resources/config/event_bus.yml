@@ -37,3 +37,10 @@ services:
             - '@innmind_command_bus'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\OneOffIncomeWasCreated }
+
+    listener.projector.month_report.init_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\InitProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReportWasCreated }

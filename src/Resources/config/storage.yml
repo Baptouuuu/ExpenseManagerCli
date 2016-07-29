@@ -192,3 +192,15 @@ services:
         public: false
         arguments:
             - '@storage.adapter.month_report'
+
+    storage.projection.month_report:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/projection/month_report'
+
+    storage.projection.lazy.month_report:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.projection.month_report'

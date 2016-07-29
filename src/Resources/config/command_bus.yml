@@ -66,6 +66,7 @@ services:
                 - '@storage.adapter.lazy.income'
                 - '@storage.adapter.lazy.one_off_income'
                 - '@storage.adapter.lazy.month_report'
+                - '@storage.projection.lazy.month_report'
         factory:
                 - ExpenseManager\Cli\Factory\PersistAdaptersCommandBusFactory
                 - make
