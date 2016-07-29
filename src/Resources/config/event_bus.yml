@@ -23,3 +23,10 @@ services:
             - ~
         tags:
             - { name: innmind_event_bus, alias: queue }
+
+    listener.month_report.apply_expense:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyExpenseListener
+        arguments:
+            - '@innmind_command_bus'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\ExpenseWasCreated }
