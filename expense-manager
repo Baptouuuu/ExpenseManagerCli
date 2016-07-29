@@ -5,5 +5,8 @@ declare(strict_types = 1);
 require __DIR__.'/vendor/autoload.php';
 
 use ExpenseManager\Cli\Application;
+use Symfony\Component\Debug\Debug;
+
+Debug::enable();
 
 (new Application(__DIR__.'/src/Resources/config'))->run();
