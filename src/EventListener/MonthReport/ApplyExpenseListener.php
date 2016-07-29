@@ -23,7 +23,7 @@ final class ApplyExpenseListener
     {
         $this->bus->handle(
             new ApplyExpense(
-                new Identity((new \DateTime)->format('Y-m')),
+                new Identity($event->date()->format('Y-m')),
                 $event->identity()
             )
         );
