@@ -18,3 +18,12 @@ services:
             - '@innmind_command_bus'
         tags:
             - { name: kernel.event_subscriber }
+
+    listener.month_report.apply_fixed_cost:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyFixedCostListener
+        arguments:
+            - '@innmind_command_bus'
+            - '@repository.fixed_cost'
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\FixedCostWasCreated }
