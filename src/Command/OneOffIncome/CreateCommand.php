@@ -5,8 +5,11 @@ namespace ExpenseManager\Cli\Command\OneOffIncome;
 
 use ExpenseManager\{
     Cli\Entity\OneOffIncome\Identity,
+    Cli\Entity\MonthReport\Identity as ReportIdentity,
     Command\CreateOneOffIncome,
-    Command\SpecifyOneOffIncomeNote
+    Command\SpecifyOneOffIncomeNote,
+    Command\GenerateOldMonthReport,
+    Repository\MonthReportRepositoryInterface
 };
 use Innmind\CommandBus\CommandBusInterface;
 use Ramsey\Uuid\Uuid;
@@ -22,10 +25,14 @@ use Symfony\Component\Console\{
 final class CreateCommand extends Command
 {
     private $commandBus;
+    private $repository;
 
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        CommandBusInterface $commandBus,
+        MonthReportRepositoryInterface $repository
+    ) {
         $this->commandBus = $commandBus;
+        $this->repository = $repository;
         parent::__construct();
     }
 
@@ -44,6 +51,16 @@ final class CreateCommand extends Command
             $output,
             new Question('When? [today] ', 'today')
         );
+        $identity = new ReportIdentity((new \DateTime($date))->format('Y-m'));
+
+        if (!$this->repository->has($identity)) {
+            $this->commandBus->handle(
+                new GenerateOldMonthReport(
+                    $identity,
+                    (string) $identity
+                )
+            );
+        }
 
         $this->commandBus->handle(
             new CreateOneOffIncome(

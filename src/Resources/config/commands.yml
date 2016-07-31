@@ -43,6 +43,7 @@ services:
         class: ExpenseManager\Cli\Command\OneOffIncome\CreateCommand
         arguments:
             - '@command_bus'
+            - '@repository.month_report'
 
     command.one_off_income.list:
         class: ExpenseManager\Cli\Command\OneOffIncome\ListCommand
