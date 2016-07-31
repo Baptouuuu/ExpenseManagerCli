@@ -64,7 +64,7 @@ final class ApplyFixedCostListener implements EventSubscriberInterface
             ->repository
             ->all()
             ->filter(function(FixedCost $cost): bool {
-                return $cost->applyDay()->value() === (int) (new \DateTime)->format('j');
+                return $cost->applyDay()->value() <= (int) (new \DateTime)->format('j');
             })
             ->foreach(function(FixedCost $cost) {
                 $this->bus->handle(

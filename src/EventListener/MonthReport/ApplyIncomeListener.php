@@ -64,7 +64,7 @@ final class ApplyIncomeListener implements EventSubscriberInterface
             ->repository
             ->all()
             ->filter(function(Income $income) {
-                return $income->applyDay()->value() === (int) (new \DateTime)->format('j');
+                return $income->applyDay()->value() <= (int) (new \DateTime)->format('j');
             })
             ->foreach(function(Income $income) {
                 $this->bus->handle(
