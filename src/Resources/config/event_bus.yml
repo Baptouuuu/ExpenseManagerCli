@@ -66,6 +66,7 @@ services:
             - '@storage.projection.lazy.month_report'
             - '@repository.fixed_cost'
             - '@repository.category'
+            - '@repository.month_report'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\FixedCostHasBeenApplied }
 
@@ -74,5 +75,6 @@ services:
         arguments:
             - '@storage.projection.lazy.month_report'
             - '@repository.income'
+            - '@repository.month_report'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\IncomeHasBeenApplied }
