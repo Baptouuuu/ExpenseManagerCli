@@ -59,11 +59,11 @@ services:
             - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateIncome }
 
     handler.create_month_report:
-        class: ExpenseManager\Handler\CreateMonthReportHandler
+        class: ExpenseManager\Handler\CreateCurrentMonthReportHandler
         arguments:
             - '@repository.month_report'
         tags:
-            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateMonthReport }
+            - { name: innmind_command_bus.handler, handles: ExpenseManager\Command\CreateCurrentMonthReport }
 
     handler.month_report.apply_expense:
         class: ExpenseManager\Handler\MonthReport\ApplyExpenseHandler

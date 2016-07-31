@@ -5,7 +5,7 @@ namespace ExpenseManager\Cli\EventListener;
 
 use ExpenseManager\{
     Repository\MonthReportRepositoryInterface,
-    Command\CreateMonthReport,
+    Command\CreateCurrentMonthReport,
     Cli\Entity\MonthReport\Identity
 };
 use Innmind\CommandBus\CommandBusInterface;
@@ -50,9 +50,8 @@ final class CreateMonthReportListener implements EventSubscriberInterface
         }
 
         $this->bus->handle(
-            new CreateMonthReport(
-                new Identity($date),
-                $date
+            new CreateCurrentMonthReport(
+                new Identity($date)
             )
         );
     }
