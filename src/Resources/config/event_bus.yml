@@ -58,3 +58,11 @@ services:
             - '@storage.projection.lazy.month_report'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\OneOffIncomeWasCreated }
+
+    listener.projector.month_report.fixed_cost_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\FixedCostProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+            - '@repository.fixed_cost'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\FixedCostHasBeenApplied }
