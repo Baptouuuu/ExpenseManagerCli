@@ -31,6 +31,7 @@ services:
         arguments:
             - '@command_bus'
             - '@repository.category'
+            - '@repository.month_report'
 
     command.expense.list:
         class: ExpenseManager\Cli\Command\Expense\ListCommand

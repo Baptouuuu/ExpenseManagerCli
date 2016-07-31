@@ -5,10 +5,13 @@ namespace ExpenseManager\Cli\Command\Expense;
 
 use ExpenseManager\{
     Cli\Entity\Expense\Identity,
+    Cli\Entity\MonthReport\Identity as ReportIdentity,
     Repository\CategoryRepositoryInterface,
+    Repository\MonthReportRepositoryInterface,
     Entity\Category,
     Command\CreateExpense,
-    Command\SpecifyExpenseNote
+    Command\SpecifyExpenseNote,
+    Command\GenerateOldMonthReport
 };
 use Innmind\CommandBus\CommandBusInterface;
 use Ramsey\Uuid\Uuid;
@@ -25,13 +28,16 @@ final class CreateCommand extends Command
 {
     private $commandBus;
     private $categoryRepository;
+    private $reports;
 
     public function __construct(
         CommandBusInterface $commandBus,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        MonthReportRepositoryInterface $reports
     ) {
         $this->commandBus = $commandBus;
         $this->categoryRepository = $categoryRepository;
+        $this->reports = $reports;
         parent::__construct();
     }
 
@@ -72,6 +78,17 @@ final class CreateCommand extends Command
             $output,
             new Question('When? [today] ', 'today')
         );
+
+        $reportIdentity = new ReportIdentity((new \DateTime($date))->format('Y-m'));
+
+        if (!$this->reports->has($reportIdentity)) {
+            $this->commandBus->handle(
+                new GenerateOldMonthReport(
+                    $reportIdentity,
+                    (string) $reportIdentity
+                )
+            );
+        }
 
         $this->commandBus->handle(
             new CreateExpense(
