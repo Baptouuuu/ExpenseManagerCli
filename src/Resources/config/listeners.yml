@@ -1,0 +1,88 @@
+services:
+    listener.disable_command_while_not_initialized:
+        class: ExpenseManager\Cli\EventListener\DisableCommandWhileNotInitializedListener
+        arguments:
+            - '@storage.config'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    listener.create_month_report:
+        class: ExpenseManager\Cli\EventListener\CreateMonthReportListener
+        arguments:
+            - '@repository.month_report'
+            - '@innmind_command_bus'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    listener.month_report.apply_fixed_cost:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyFixedCostListener
+        arguments:
+            - '@innmind_command_bus'
+            - '@repository.fixed_cost'
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\FixedCostWasCreated }
+
+    listener.month_report.apply_income:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyIncomeListener
+        arguments:
+            - '@innmind_command_bus'
+            - '@repository.income'
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\IncomeWasCreated }
+
+    listener.month_report.apply_expense:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyExpenseListener
+        arguments:
+            - '@innmind_command_bus'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\ExpenseWasCreated }
+
+    listener.month_report.apply_one_off_income:
+        class: ExpenseManager\Cli\EventListener\MonthReport\ApplyOneOffIncomeListener
+        arguments:
+            - '@innmind_command_bus'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\OneOffIncomeWasCreated }
+
+    listener.projector.month_report.init_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\InitProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReportWasCreated }
+
+    listener.projector.month_report.expense_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\ExpenseProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+            - '@repository.category'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\ExpenseWasCreated }
+
+    listener.projector.month_report.one_off_income_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\OneOffIncomeProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\OneOffIncomeWasCreated }
+
+    listener.projector.month_report.fixed_cost_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\FixedCostProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+            - '@repository.fixed_cost'
+            - '@repository.category'
+            - '@repository.month_report'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\FixedCostHasBeenApplied }
+
+    listener.projector.month_report.income_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\IncomeProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+            - '@repository.income'
+            - '@repository.month_report'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\IncomeHasBeenApplied }

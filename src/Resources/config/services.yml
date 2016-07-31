@@ -7,3 +7,4 @@ imports:
     - { resource: command_bus.yml }
     - { resource: event_bus.yml }
     - { resource: event_dispatcher.yml }
+    - { resource: listeners.yml }
