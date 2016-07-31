@@ -73,4 +73,4 @@ services:
     command.month_report:
         class: ExpenseManager\Cli\Command\MonthReportCommand
         arguments:
-            - '@repository.month_report'
+            - '@storage.projection.lazy.month_report'

@@ -3,24 +3,23 @@ declare(strict_types = 1);
 
 namespace ExpenseManager\Cli\Command;
 
-use ExpenseManager\{
-    Repository\MonthReportRepositoryInterface,
-    Cli\Entity\MonthReport\Identity
-};
+use Innmind\Filesystem\AdapterInterface;
 use Symfony\Component\Console\{
     Command\Command,
     Input\InputArgument,
     Input\InputInterface,
-    Output\OutputInterface
+    Output\OutputInterface,
+    Helper\Table,
+    Helper\TableCell
 };
 
 final class MonthReportCommand extends Command
 {
-    private $repository;
+    private $filesystem;
 
-    public function __construct(MonthReportRepositoryInterface $repository)
+    public function __construct(AdapterInterface $filesystem)
     {
-        $this->repository = $repository;
+        $this->filesystem = $filesystem;
         parent::__construct();
     }
 
@@ -39,16 +38,24 @@ final class MonthReportCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $report = $this->repository->get(
-            new Identity($input->getArgument('month'))
-        );
+        $month = $input->getArgument('month');
+        $projection = $this->filesystem->get($month);
+        $projection = json_decode((string) $projection->content(), true);
 
-        $color = $report->amount()->value() > 0 ? 'green' : 'red';
-        $output->writeln(sprintf(
-            'Status for <fg=yellow>%s</>: <fg=%s>%01.2f</>',
-            $report,
-            $color,
-            $report->amount()->value() / 100
-        ));
+        $total = sprintf(
+            '<fg=yellow>%s</>: %s',
+            $month,
+            $projection['formatted_amount']
+        );
+        $ventilation = [
+            $projection['formatted_total_income'],
+            $projection['formatted_total_expense'],
+        ];
+        $table = new Table($output);
+        $table->setHeaders([
+            [new TableCell($total, ['colspan' => 2])],
+            $ventilation
+        ]);
+        $table->render();
     }
 }
