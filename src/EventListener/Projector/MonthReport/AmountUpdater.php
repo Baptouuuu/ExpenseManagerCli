@@ -21,7 +21,7 @@ trait AmountUpdater
         );
         $content['raw_total_income'] += $amount;
         $content['formatted_total_income'] = sprintf(
-            '<fg=red>%01.2f</>',
+            '<fg=green>%01.2f</>',
             $content['raw_total_income'] / 100
         );
 
@@ -41,7 +41,7 @@ trait AmountUpdater
         );
         $content['raw_total_expense'] += $amount;
         $content['formatted_total_expense'] = sprintf(
-            '<fg=green>%01.2f</>',
+            '<fg=red>%01.2f</>',
             $content['raw_total_expense'] / 100
         );
 
