@@ -66,3 +66,11 @@ services:
             - '@repository.fixed_cost'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\FixedCostHasBeenApplied }
+
+    listener.projector.month_report.income_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\IncomeProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+            - '@repository.income'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\IncomeHasBeenApplied }
