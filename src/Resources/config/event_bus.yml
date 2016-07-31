@@ -44,3 +44,10 @@ services:
             - '@storage.projection.lazy.month_report'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReportWasCreated }
+
+    listener.projector.month_report.expense_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\MonthReport\ExpenseProjectionListener
+        arguments:
+            - '@storage.projection.lazy.month_report'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\ExpenseWasCreated }
