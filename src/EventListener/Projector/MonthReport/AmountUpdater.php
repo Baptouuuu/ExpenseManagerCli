@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace ExpenseManager\Cli\EventListener\Projector\MonthReport;
 
+use ExpenseManager\Entity\Category;
 use Innmind\Filesystem\{
     File,
     Stream\StringStream
@@ -30,7 +31,7 @@ trait AmountUpdater
         ));
     }
 
-    private function decreaseBy(File $file, int $amount): File
+    private function decreaseBy(File $file, int $amount, Category $category): File
     {
         $content = json_decode((string) $file->content(), true);
         $content['raw_amount'] -= $amount;
@@ -44,6 +45,17 @@ trait AmountUpdater
             '<fg=red>%01.2f</>',
             $content['raw_total_expense'] / 100
         );
+        $categoryProjection = $content['categories'][(string) $category->identity()] ?? [
+            'name' => sprintf('<fg=%s>%s</>', $category->color(), $category->name()),
+            'amount' => 0,
+            'formatted_amount' => '<fg=red>0.00</>',
+        ];
+        $categoryProjection['amount'] += $amount;
+        $categoryProjection['formatted_amount'] = sprintf(
+            '<fg=red>%01.2f</>',
+            $categoryProjection['amount'] / 100
+        );
+        $content['categories'][(string) $category->identity()] = $categoryProjection;
 
         return $file->withContent(new StringStream(
             json_encode($content)."\n"

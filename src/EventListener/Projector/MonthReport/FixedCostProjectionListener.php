@@ -5,7 +5,8 @@ namespace ExpenseManager\Cli\EventListener\Projector\MonthReport;
 
 use ExpenseManager\{
     Event\MonthReport\FixedCostHasBeenApplied,
-    Repository\FixedCostRepositoryInterface
+    Repository\FixedCostRepositoryInterface,
+    Repository\CategoryRepositoryInterface
 };
 use Innmind\Filesystem\AdapterInterface;
 
@@ -15,13 +16,16 @@ final class FixedCostProjectionListener
 
     private $filesystem;
     private $repository;
+    private $categories;
 
     public function __construct(
         AdapterInterface $filesystem,
-        FixedCostRepositoryInterface $repository
+        FixedCostRepositoryInterface $repository,
+        CategoryRepositoryInterface $categories
     ) {
         $this->filesystem = $filesystem;
         $this->repository = $repository;
+        $this->categories = $categories;
     }
 
     public function __invoke(FixedCostHasBeenApplied $event)
@@ -30,7 +34,11 @@ final class FixedCostProjectionListener
             $event->date()->format('Y-m')
         );
         $cost = $this->repository->get($event->fixedCost());
-        $file = $this->decreaseBy($file, $cost->amount()->value());
+        $file = $this->decreaseBy(
+            $file,
+            $cost->amount()->value(),
+            $this->categories->get($cost->category())
+        );
         $this->filesystem->add($file);
     }
 }

@@ -51,11 +51,19 @@ final class MonthReportCommand extends Command
             $projection['formatted_total_income'],
             $projection['formatted_total_expense'],
         ];
+        $categories = array_map(
+            function(array $data): array {
+                return [$data['name'], $data['formatted_amount']];
+            },
+            $projection['categories']
+        );
         $table = new Table($output);
-        $table->setHeaders([
-            [new TableCell($total, ['colspan' => 2])],
-            $ventilation
-        ]);
-        $table->render();
+        $table
+            ->setHeaders([
+                [new TableCell($total, ['colspan' => 2])],
+                $ventilation
+            ])
+            ->setRows($categories)
+            ->render();
     }
 }

@@ -33,6 +33,7 @@ final class InitProjectionListener
                         'formatted_total_income' => '<fg=green>0.00</>',
                         'raw_total_expense' => 0,
                         'formatted_total_expense' => '<fg=red>0.00</>',
+                        'categories' => [],
                     ])."\n"
                 )
             )

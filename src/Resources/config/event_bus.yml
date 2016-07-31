@@ -49,6 +49,7 @@ services:
         class: ExpenseManager\Cli\EventListener\Projector\MonthReport\ExpenseProjectionListener
         arguments:
             - '@storage.projection.lazy.month_report'
+            - '@repository.category'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\ExpenseWasCreated }
 
@@ -64,6 +65,7 @@ services:
         arguments:
             - '@storage.projection.lazy.month_report'
             - '@repository.fixed_cost'
+            - '@repository.category'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\FixedCostHasBeenApplied }
 
