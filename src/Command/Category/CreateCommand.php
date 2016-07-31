@@ -3,7 +3,10 @@ declare(strict_types = 1);
 
 namespace ExpenseManager\Cli\Command\Category;
 
-use ExpenseManager\Cli\Entity\Category\Identity;
+use ExpenseManager\Cli\{
+    Entity\Category\Identity,
+    Color as CliColor
+};
 use ExpenseManager\{
     Command\CreateCategory,
     Color
@@ -55,6 +58,12 @@ final class CreateCommand extends Command
                 $color
             )
         );
-        $output->writeln(sprintf('<fg=%s>%s</> created', $color, $name));
+        $output->writeln(sprintf(
+            '%s created',
+            new CliColor(
+                $color,
+                $name
+            )
+        ));
     }
 }

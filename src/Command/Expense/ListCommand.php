@@ -67,10 +67,12 @@ final class ListCommand extends Command
                 function(OutputInterface $output, Expense $expense): OutputInterface {
                     $category = $this->categoryRepository->get($expense->category());
                     $output->writeln(sprintf(
-                        '[<fg=yellow>%s</>] <fg=%s>%s</> %01.2f (note: %s)',
+                        '[<fg=yellow>%s</>] %s %01.2f (note: %s)',
                         $expense->date()->format('Y-m-d'),
-                        $category->color(),
-                        $category->name(),
+                        new Color(
+                            (string) $category->color(),
+                            $category->name()
+                        ),
                         $expense->amount()->value() / 100,
                         $expense->note()
                     ));

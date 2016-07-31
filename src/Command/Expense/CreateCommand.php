@@ -6,6 +6,7 @@ namespace ExpenseManager\Cli\Command\Expense;
 use ExpenseManager\{
     Cli\Entity\Expense\Identity,
     Cli\Entity\MonthReport\Identity as ReportIdentity,
+    Cli\Color,
     Repository\CategoryRepositoryInterface,
     Repository\MonthReportRepositoryInterface,
     Entity\Category,
@@ -54,9 +55,8 @@ final class CreateCommand extends Command
         $data = $categories->reduce(
             ['choices' => [], 'identities' => []],
             function(array $carry, Category $category): array {
-                $carry['choices'][] = $name = sprintf(
-                    '<fg=%s>%s</>',
-                    $category->color(),
+                $carry['choices'][] = $name = (string) new Color(
+                    (string) $category->color(),
                     $category->name()
                 );
                 $carry['identities'][$name] = $category->identity();

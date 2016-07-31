@@ -5,7 +5,8 @@ namespace ExpenseManager\Cli\Command\Category;
 
 use ExpenseManager\{
     Entity\Category,
-    Repository\CategoryRepositoryInterface
+    Repository\CategoryRepositoryInterface,
+    Cli\Color
 };
 use Symfony\Component\Console\{
     Command\Command,
@@ -31,9 +32,8 @@ final class ListCommand extends Command
             ->reduce(
                 $output,
                 function(OutputInterface $output, Category $category): OutputInterface {
-                    $output->writeln(sprintf(
-                        '<fg=%s>%s</>',
-                        $category->color(),
+                    $output->writeln((string) new Color(
+                        (string) $category->color(),
                         $category->name()
                     ));
 

@@ -3,7 +3,10 @@ declare(strict_types = 1);
 
 namespace ExpenseManager\Cli\Command\Budget;
 
-use ExpenseManager\Cli\Entity\Budget\Identity;
+use ExpenseManager\Cli\{
+    Entity\Budget\Identity,
+    Color
+};
 use ExpenseManager\{
     Entity\Category,
     Repository\CategoryRepositoryInterface,
@@ -47,9 +50,8 @@ final class CreateCommand extends Command
         $data = $categories->reduce(
             ['choices' => [], 'identities' => []],
             function(array $carry, Category $category): array {
-                $carry['choices'][] = $name = sprintf(
-                    '<fg=%s>%s</>',
-                    $category->color(),
+                $carry['choices'][] = $name = (string) new Color(
+                    (string) $category->color(),
                     $category->name()
                 );
                 $carry['identities'][$name] = $category->identity();

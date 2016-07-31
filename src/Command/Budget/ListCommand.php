@@ -7,7 +7,8 @@ use ExpenseManager\{
     Repository\BudgetRepositoryInterface,
     Repository\CategoryRepositoryInterface,
     Entity\Budget,
-    Entity\Category\IdentityInterface
+    Entity\Category\IdentityInterface,
+    Cli\Color
 };
 use Innmind\Immutable\Set;
 use Symfony\Component\Console\{
@@ -49,9 +50,8 @@ final class ListCommand extends Command
                                 function(Set $carry, IdentityInterface $identity): Set {
                                     $category = $this->categoryRepository->get($identity);
 
-                                    return $carry->add(sprintf(
-                                        '<fg=%s>%s</>',
-                                        $category->color(),
+                                    return $carry->add((string) new Color(
+                                        (string) $category->color(),
                                         $category->name()
                                     ));
                                 }

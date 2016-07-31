@@ -7,7 +7,8 @@ use ExpenseManager\{
     Cli\Entity\FixedCost\Identity,
     Repository\CategoryRepositoryInterface,
     Entity\Category,
-    Command\CreateFixedCost
+    Command\CreateFixedCost,
+    Cli\Color
 };
 use Innmind\CommandBus\CommandBusInterface;
 use Ramsey\Uuid\Uuid;
@@ -48,9 +49,8 @@ final class CreateCommand extends Command
         $data = $categories->reduce(
             ['choices' => [], 'identities' => []],
             function(array $carry, Category $category): array {
-                $carry['choices'][] = $name = sprintf(
-                    '<fg=%s>%s</>',
-                    $category->color(),
+                $carry['choices'][] = $name = (string) new Color(
+                    (string) $category->color(),
                     $category->name()
                 );
                 $carry['identities'][$name] = $category->identity();
