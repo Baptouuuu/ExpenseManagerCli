@@ -14,7 +14,7 @@ final class FixedCostProjectionListener
     use AmountUpdater;
 
     private $filesystem;
-    private repository;
+    private $repository;
 
     public function __construct(
         AdapterInterface $filesystem,
