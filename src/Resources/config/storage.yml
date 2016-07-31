@@ -204,3 +204,15 @@ services:
         public: false
         arguments:
             - '@storage.projection.month_report'
+
+    storage.projection.budget:
+        class: Innmind\Filesystem\Adapter\FilesystemAdapter
+        public: false
+        arguments:
+            - '%wallet_path%/projection/budget'
+
+    storage.projection.lazy.budget:
+        class: Innmind\Filesystem\Adapter\LazyAdapter
+        public: false
+        arguments:
+            - '@storage.projection.budget'

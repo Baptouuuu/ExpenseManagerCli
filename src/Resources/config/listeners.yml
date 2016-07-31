@@ -86,3 +86,10 @@ services:
             - '@repository.month_report'
         tags:
             - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReport\IncomeHasBeenApplied }
+
+    listener.projector.budget.init_projection:
+        class: ExpenseManager\Cli\EventListener\Projector\Budget\InitProjectionListener
+        arguments:
+            - '@storage.projection.lazy.budget'
+        tags:
+            - { name: innmind_event_bus.listener, listen_to: ExpenseManager\Event\MonthReportWasCreated }
